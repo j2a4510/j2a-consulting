@@ -8,6 +8,18 @@
   onScrollHead();
   window.addEventListener("scroll", onScrollHead, { passive: true });
 
+  // Menu mobile
+  const mb = document.querySelector(".menu-btn"), nav = document.getElementById("mainnav");
+  if (mb) {
+    const close = () => { mb.setAttribute("aria-expanded", "false"); nav.classList.remove("open"); };
+    mb.addEventListener("click", () => {
+      const open = mb.getAttribute("aria-expanded") !== "true";
+      mb.setAttribute("aria-expanded", open); nav.classList.toggle("open", open);
+    });
+    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  }
+
   // Titre : le mot final change
   const verb = document.querySelector(".verb span");
   if (verb && !reduce) {

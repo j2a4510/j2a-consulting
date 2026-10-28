@@ -71,11 +71,11 @@ def orbit_svg(t):
 
 T = {
 "fr": dict(
-    lang="fr", other_href="en/", other_label="English", base="",
-    title="J2A Consulting | Structuration et financement de projets en Afrique de l'Ouest",
-    desc="Depuis Lomé, J2A Consulting structure les projets africains pour qu'ils deviennent finançables : étude, structuration, financement, implantation. Afrique de l'Ouest, Europe, Golfe, Québec, Asie.",
+    lang="fr", path="", locale="fr_FR", other_href="en/", other_label="English", base="",
+    title="J2A Consulting | Structuration de projets, préparation au financement et accès au marché en Afrique de l'Ouest",
+    desc="J2A Consulting, cabinet basé à Lomé, structure les projets, prépare les dossiers de financement et facilite l'accès aux marchés en Afrique de l'Ouest, en lien avec l'Europe, le Golfe, le Québec et l'Asie.",
     nav=[("#parcours", "Parcours"), ("#expertises", "Expertises"), ("#dirigeant", "Dirigeant"), ("#contact", "Contact")],
-    h1_a="Nous rendons les projets africains", verbs=["finançables.", "structurés.", "opérationnels."],
+    h1_a="Nous préparons les projets africains", verbs=["au financement.", "à l'exécution.", "au marché."],
     lede="Depuis Lomé, J2A Consulting relie porteurs de projets, collectivités et investisseurs, et accompagne chaque projet de l'étude jusqu'à l'implantation.",
     cta1="Parler de votre projet", cta2="Voir le parcours",
     map_title="Les corridors de J2A Consulting au départ de Lomé",
@@ -93,7 +93,7 @@ T = {
     j_title="Le parcours d'un projet", j_intro="Quatre étapes, un seul interlocuteur, du premier diagnostic à l'installation sur le terrain.",
     steps=[("Étudier", "Nous validons le projet avant d'engager des moyens.", ["Étude de marché et faisabilité", "Identification des partenaires locaux", "Diagnostic go / no-go"]),
            ("Structurer", "Nous donnons au projet la forme qu'attendent les financeurs.", ["Montage juridique et gouvernance", "Phasage et modèle financier", "Contrats avec les acheteurs"]),
-           ("Financer", "Nous allons chercher les financements et les négocions.", ["Dossiers banque et investisseurs", "Banques locales, fonds, bailleurs", "Négociation et closing"]),
+           ("Financer", "Nous préparons les dossiers et accompagnons la recherche de financement. La décision reste celle des financeurs.", ["Dossiers banque et investisseurs", "Banques locales, fonds, bailleurs", "Accompagnement des négociations"]),
            ("Implanter", "Nous restons aux côtés du projet sur le terrain.", ["Mise en œuvre et suivi", "Recrutement et partenaires", "Représentation locale"])],
     exp_title="Ce que nous faisons",
     exp=[("Agro-industrie", "De la parcelle au conteneur : nous structurons des filières complètes, de la production à l'export.", ["Contrats avec les acheteurs", "Certification et qualité", "Financement des campagnes", "Unités de transformation"]),
@@ -124,11 +124,11 @@ T = {
     rights="J2A Consulting SARL, Lomé, République togolaise",
 ),
 "en": dict(
-    lang="en", other_href="../", other_label="Français", base="../",
-    title="J2A Consulting | Project structuring and financing in West Africa",
-    desc="From Lomé, J2A Consulting structures African projects so they become financeable: studies, structuring, financing, implementation. West Africa, Europe, the Gulf, Quebec, Asia.",
+    lang="en", path="en/", locale="en_GB", other_href="../", other_label="Français", base="../",
+    title="J2A Consulting | Project structuring, financing readiness and market access in West Africa",
+    desc="J2A Consulting, based in Lomé, structures projects, prepares financing files and facilitates market access in West Africa, with links to Europe, the Gulf, Quebec and Asia.",
     nav=[("#parcours", "Journey"), ("#expertises", "Expertise"), ("#dirigeant", "Leadership"), ("#contact", "Contact")],
-    h1_a="We make African projects", verbs=["financeable.", "structured.", "operational."],
+    h1_a="We get African projects ready", verbs=["for financing.", "for execution.", "for market."],
     lede="From Lomé, J2A Consulting connects project owners, local governments and investors, and stays with each project from first study to implementation.",
     cta1="Discuss your project", cta2="See the journey",
     map_title="J2A Consulting's corridors from Lomé",
@@ -146,7 +146,7 @@ T = {
     j_title="A project's journey", j_intro="Four steps, one partner, from the first diagnosis to operations on the ground.",
     steps=[("Study", "We validate the project before committing resources.", ["Market and feasibility study", "Local partner identification", "Go / no-go diagnosis"]),
            ("Structure", "We shape the project the way financiers expect it.", ["Legal set-up and governance", "Phasing and financial model", "Buyer contracts"]),
-           ("Finance", "We source the financing and negotiate it.", ["Bank and investor files", "Local banks, funds, donors", "Negotiation and closing"]),
+           ("Finance", "We prepare the files and support the search for financing. The decision remains with the financiers.", ["Bank and investor files", "Local banks, funds, donors", "Negotiation support"]),
            ("Implement", "We stay with the project on the ground.", ["Execution and monitoring", "Hiring and partners", "Local representation"])],
     exp_title="What we do",
     exp=[("Agribusiness", "From the field to the container: we structure complete value chains, from production to export.", ["Buyer contracts", "Certification and quality", "Seasonal financing", "Processing units"]),
@@ -178,7 +178,7 @@ T = {
 ),
 }
 
-LINKEDIN = "https://www.linkedin.com/in/yaovi-kokodoko"  # à confirmer
+SITE = "https://j2a4510.github.io/j2a-consulting/"  # à remplacer par le nom de domaine définitif
 
 def page(t):
     b = t["base"]
@@ -209,11 +209,18 @@ def page(t):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{t['title']}</title>
 <meta name="description" content="{t['desc']}">
+<link rel="canonical" href="{SITE}{t['path']}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{SITE}{t['path']}">
+<meta property="og:locale" content="{t['locale']}">
+<meta property="og:site_name" content="J2A Consulting">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="{t['title']}">
 <meta property="og:description" content="{t['desc']}">
-<meta property="og:image" content="{b}assets/yaovi.jpg">
-<link rel="alternate" hreflang="fr" href="{b}">
-<link rel="alternate" hreflang="en" href="{b}en/">
+<meta property="og:image" content="{SITE}assets/share.jpg">
+<link rel="alternate" hreflang="fr" href="{SITE}">
+<link rel="alternate" hreflang="en" href="{SITE}en/">
+<link rel="alternate" hreflang="x-default" href="{SITE}">
 <link rel="icon" href="{b}assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -224,7 +231,8 @@ def page(t):
 <header class="site-head">
   <div class="wrap">
     <a class="brand" href="{b if b else './'}"><img src="{b}assets/logo-light.svg" alt="J2A Consulting"></a>
-    <nav class="nav" aria-label="Navigation">{nav}<a class="lang" href="{t['other_href']}" lang="{'en' if t['lang'] == 'fr' else 'fr'}">{t['other_label']}</a></nav>
+    <button class="menu-btn" aria-expanded="false" aria-controls="mainnav"><span class="sr">Menu</span><i></i><i></i></button>
+    <nav class="nav" id="mainnav" aria-label="Navigation">{nav}<a class="lang" href="{t['other_href']}" lang="{'en' if t['lang'] == 'fr' else 'fr'}">{t['other_label']}</a></nav>
   </div>
 </header>
 
