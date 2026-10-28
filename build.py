@@ -1,9 +1,10 @@
 """Génère les pages FR et EN du site J2A Consulting à partir d'un seul gabarit.
 Usage : python3 build.py
 """
-import json, math, pathlib
+import json, math, pathlib, hashlib
 
 ROOT = pathlib.Path(__file__).parent
+VER = hashlib.md5((ROOT / "assets/style.css").read_bytes() + (ROOT / "assets/app.js").read_bytes()).hexdigest()[:8]
 
 def xy(lon, lat):
     """Projection équirectangulaire simple (lon, lat) -> (x, y) sur 1000 x 500."""
@@ -258,7 +259,7 @@ def page(t):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{b}assets/style.css">
+<link rel="stylesheet" href="{b}assets/style.css?v={VER}">
 </head>
 <body>
 <header class="site-head">
@@ -395,7 +396,7 @@ def page(t):
   </div>
 </footer>
 <script type="application/json" id="site-data">{data}</script>
-<script src="{b}assets/app.js" defer></script>
+<script src="{b}assets/app.js?v={VER}" defer></script>
 <script src="https://tally.so/widgets/embed.js" async></script>
 </body>
 </html>
