@@ -56,27 +56,17 @@
     if (!reduce) setInterval(() => { if (auto) select((idx + 1) % cities.length); }, 4200);
   }
 
-  // Parcours : défilement horizontal piloté par le scroll
-  const pin = document.querySelector(".journey-pin");
-  const panels = document.querySelector(".panels");
-  const fill = document.querySelector(".track-line i");
-  const items = [...document.querySelectorAll(".panel")];
-  const horizontal = () => window.matchMedia("(min-width: 900px)").matches && !reduce;
+  // Parcours : la ligne dorée se remplit au fil de la lecture
+  const vw = document.querySelector(".vwrap");
+  const railFill = document.querySelector(".rail i");
+  const vItems = [...document.querySelectorAll(".vsteps > li")];
   const onJourney = () => {
-    if (!pin) return;
-    const r = pin.getBoundingClientRect();
-    const total = pin.offsetHeight - window.innerHeight;
-    const p = Math.min(1, Math.max(0, -r.top / Math.max(1, total)));
-    fill.style.width = (p * 100) + "%";
-    if (horizontal()) {
-      const max = panels.scrollWidth - panels.parentElement.clientWidth;
-      panels.style.transform = `translateX(${-p * Math.max(0, max)}px)`;
-      const active = Math.min(items.length - 1, Math.floor(p * items.length));
-      items.forEach((el, k) => el.classList.toggle("on", k === active));
-    } else {
-      panels.style.transform = "";
-      items.forEach((el) => el.classList.add("on"));
-    }
+    if (!vw) return;
+    const r = vw.getBoundingClientRect();
+    const mid = window.innerHeight * 0.6;
+    const p = Math.min(1, Math.max(0, (mid - r.top) / r.height));
+    railFill.style.height = (p * 100) + "%";
+    vItems.forEach((li) => li.classList.toggle("on", li.getBoundingClientRect().top < mid));
   };
   onJourney();
   window.addEventListener("scroll", onJourney, { passive: true });

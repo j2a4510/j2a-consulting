@@ -75,6 +75,9 @@ T = {
     title="J2A Consulting | Structuration de projets, préparation au financement et accès au marché en Afrique de l'Ouest",
     desc="J2A Consulting, cabinet basé à Lomé, structure les projets, prépare les dossiers de financement et facilite l'accès aux marchés en Afrique de l'Ouest, en lien avec l'Europe, le Golfe, le Québec et l'Asie.",
     nav=[("#parcours", "Parcours"), ("#expertises", "Expertises"), ("#dirigeant", "Dirigeant"), ("#contact", "Contact")],
+    h1='Nous préparons les projets africains <span class="g">au financement, à l\'exécution et au marché.</span>',
+    proof=[("Structuration", "Projets phasés, montages juridiques et financiers, modèles au standard des financeurs."), ("Partenariats", "Acheteurs, investisseurs, bailleurs et partenaires locaux, réunis autour d\'un même projet."), ("Accès au marché", "Un réseau opérationnel en Afrique de l\'Ouest, relié à l\'Europe, au Golfe, au Québec et à l\'Asie.")],
+    eco_roles=["Exécution opérationnelle", "Architecture d\'investissement internationale", "Réseau institutionnel"],
     h1_a="Nous préparons les projets africains", verbs=["au financement.", "à l'exécution.", "au marché."],
     lede="Depuis Lomé, J2A Consulting relie porteurs de projets, collectivités et investisseurs, et accompagne chaque projet de l'étude jusqu'à l'implantation.",
     cta1="Parler de votre projet", cta2="Voir le parcours",
@@ -135,6 +138,9 @@ T = {
     title="J2A Consulting | Project structuring, financing readiness and market access in West Africa",
     desc="J2A Consulting, based in Lomé, structures projects, prepares financing files and facilitates market access in West Africa, with links to Europe, the Gulf, Quebec and Asia.",
     nav=[("#parcours", "Journey"), ("#expertises", "Expertise"), ("#dirigeant", "Leadership"), ("#contact", "Contact")],
+    h1='We get African projects <span class="g">ready for financing, execution and market.</span>',
+    proof=[("Structuring", "Phased projects, legal and financial set-ups, models built to financier standards."), ("Partnerships", "Buyers, investors, donors and local partners, brought together around one project."), ("Market access", "An operational network in West Africa, connected to Europe, the Gulf, Quebec and Asia.")],
+    eco_roles=["Operational execution", "International investment architecture", "Institutional network"],
     h1_a="We get African projects ready", verbs=["for financing.", "for execution.", "for market."],
     lede="From Lomé, J2A Consulting connects project owners, local governments and investors, and stays with each project from first study to implementation.",
     cta1="Discuss your project", cta2="See the journey",
@@ -216,6 +222,16 @@ def page(t):
     eco = "".join(
         '<div class="eco-item"><h3>' + (f'<a href="{u}" rel="noopener">{n}</a>' if u else n) + f'</h3><p>{p}</p></div>'
         for n, u, p in t["eco"])
+    proof = "".join(f'<div class="proof-item"><h3>{h}</h3><p>{p}</p></div>' for h, p in t["proof"])
+    vsteps = "".join(
+        f'<li><span class="n" aria-hidden="true">{i}</span><div><h3>{h}</h3><p>{p}</p><ul>' + "".join(f"<li>{x}</li>" for x in li) + "</ul></div></li>"
+        for i, (h, p, li) in enumerate(t["steps"], 1))
+    expg = "".join(
+        f'<article class="exp-card"><h3>{h}</h3><p>{p}</p><ul>' + "".join(f"<li>{x}</li>" for x in li) + "</ul></article>"
+        for h, p, li in t["exp"])
+    eco3 = "".join(
+        f'<div class="eco-col"><span class="role">{r}</span><h3>' + (f'<a href="{u}" rel="noopener">{n}</a>' if u else n) + f'</h3><p>{p}</p></div>'
+        for (n, u, p), r in zip(t["eco"], t["eco_roles"]))
     data = json.dumps(dict(verbs=t["verbs"], cities=t["cities"], tiers=t["tiers"]), ensure_ascii=False)
     return f"""<!doctype html>
 <html lang="{t['lang']}">
@@ -247,7 +263,7 @@ def page(t):
   <div class="wrap">
     <a class="brand" href="{b if b else './'}"><img src="{b}assets/logo-light.svg" alt="J2A Consulting"></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="mainnav"><span class="sr">Menu</span><i></i><i></i></button>
-    <nav class="nav" id="mainnav" aria-label="Navigation">{nav}<a class="lang" href="{t['other_href']}" lang="{'en' if t['lang'] == 'fr' else 'fr'}">{t['other_label']}</a></nav>
+    <nav class="nav" id="mainnav" aria-label="Navigation">{nav}<a class="nav-cta" href="https://tally.so/r/rDD17N" data-tally-open="rDD17N" data-tally-layout="modal" data-tally-width="640" data-tally-emoji-animation="none">{t['form_cta']}</a><a class="lang" href="{t['other_href']}" lang="{'en' if t['lang'] == 'fr' else 'fr'}">{t['other_label']}</a></nav>
   </div>
 </header>
 
@@ -255,20 +271,24 @@ def page(t):
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <h1>{t['h1_a']} <span class="verb"><span>{t['verbs'][0]}</span></span></h1>
-      <p class="lede">{t['lede']}</p>
-      <div class="cta-row">
+      <h1 class="reveal">{t['h1']}</h1>
+      <p class="lede reveal d2">{t['lede']}</p>
+      <div class="cta-row reveal d3">
         <a class="btn btn-gold" href="https://tally.so/r/rDD17N" data-tally-open="rDD17N" data-tally-layout="modal" data-tally-width="640" data-tally-emoji-animation="none">{t['cta1']}</a>
         <a class="btn btn-ghost" href="#parcours">{t['cta2']}</a>
       </div>
     </div>
-    <div class="corridor">
+    <div class="corridor reveal d4">
       {corridor_svg(t)}
       <div class="corridor-card" aria-live="polite"></div>
       <div class="corridor-hint">{t['map_hint']}</div>
     </div>
   </div>
   <div class="scroll-cue" aria-hidden="true"></div>
+</section>
+
+<section class="proof" aria-label="J2A">
+  <div class="wrap proof-grid">{proof}</div>
 </section>
 
 <section class="manifesto">
@@ -279,16 +299,14 @@ def page(t):
 </section>
 
 <section class="journey" id="parcours">
-  <div class="wrap journey-head">
-    <h2>{t['j_title']}</h2>
-    <p>{t['j_intro']}</p>
-  </div>
-  <div class="journey-pin">
-    <div class="journey-stage">
-      <div class="wrap">
-        <div class="track-line" aria-hidden="true"><i></i></div>
-        <div class="panels">{panels}</div>
-      </div>
+  <div class="wrap journey-grid">
+    <div class="journey-head">
+      <h2>{t['j_title']}</h2>
+      <p>{t['j_intro']}</p>
+    </div>
+    <div class="vwrap">
+      <span class="rail" aria-hidden="true"><i></i></span>
+      <ol class="vsteps">{vsteps}</ol>
     </div>
   </div>
 </section>
@@ -296,10 +314,7 @@ def page(t):
 <section class="expertise" id="expertises">
   <div class="wrap">
     <h2>{t['exp_title']}</h2>
-    <div class="switcher">
-      <div class="tabs" role="tablist" aria-label="{t['exp_title']}">{tabs}</div>
-      <div>{tps}</div>
-    </div>
+    <div class="exp-grid">{expg}</div>
   </div>
 </section>
 
@@ -348,13 +363,8 @@ def page(t):
 <section class="eco">
   <div class="wrap">
     <h2>{t['eco_title']}</h2>
-    <div class="eco-grid">
-      {orbit_svg(t)}
-      <div>
-        <p>{t['eco_intro']}</p>
-        <div class="eco-list">{eco}</div>
-      </div>
-    </div>
+    <p class="eco-intro">{t['eco_intro']}</p>
+    <div class="eco-cols">{eco3}</div>
   </div>
 </section>
 </main>
