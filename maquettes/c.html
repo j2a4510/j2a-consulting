@@ -1,0 +1,32 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maquette C · Contraste premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#06212d;--teal:#0e4a5c;--gold:#d6b46a;--sky:#e8f1f3;--ink:#0a1a22;--muted:#58707a}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff}
+.w{width:min(1200px,100% - 32px);margin:auto}
+.top{background:var(--deep);color:#fff;position:relative;overflow:hidden}
+.top:before{content:"";position:absolute;right:-10%;top:-30%;width:70%;height:160%;background:linear-gradient(160deg,var(--teal),transparent 60%);transform:skewX(-14deg)}
+header .w{display:flex;justify-content:space-between;align-items:center;height:84px;position:relative}header img{height:46px}
+nav{display:flex;gap:26px;align-items:center;font-size:15px}nav a{color:#d7e4e8;text-decoration:none}nav .c{background:var(--gold);color:var(--deep);padding:11px 20px;border-radius:8px;font-weight:600}
+.hero .w{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:end;position:relative;padding-top:40px}
+h1{font-family:Sora,sans-serif;font-weight:300;font-size:clamp(36px,4.8vw,64px);line-height:1.06;margin:0;letter-spacing:-.02em}h1 b{font-weight:700;color:var(--gold)}
+.lede{color:#b9cdd3;font-size:18px;line-height:1.6;max-width:50ch;margin:24px 0 32px}
+.btn{display:inline-block;background:var(--gold);color:var(--deep);padding:16px 26px;border-radius:8px;font-weight:600;text-decoration:none}.g{border:1px solid #3d6b78;color:#fff;background:transparent;margin-left:10px}
+.hl{padding-bottom:70px}.ph img{width:100%;display:block;max-height:560px;object-fit:cover;object-position:top;border-radius:200px 200px 0 0;border:6px solid var(--gold);border-bottom:0}
+.proof{background:var(--gold)}.proof .w{display:grid;grid-template-columns:repeat(3,1fr)}.proof div{padding:26px 24px 26px 0;color:var(--deep)}.proof b{font-family:Sora;font-size:18px}.proof p{margin:6px 0 0;font-size:15px;line-height:1.5}
+.sec{background:var(--sky)}.sec .w{padding:80px 0}h2{font-family:Sora;font-weight:600;font-size:40px;margin:0 0 34px;color:var(--deep)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.card{background:#fff;border-radius:16px;padding:28px;border-left:6px solid var(--teal)}.card h3{font-family:Sora;margin:0;font-size:22px;color:var(--deep)}.card p{color:var(--muted);line-height:1.6}
+@media(max-width:900px){.hero .w,.proof .w,.grid{grid-template-columns:1fr}nav a:not(.c){display:none}.g{margin:10px 0 0}}
+</style></head><body>
+<div class="top"><header><div class="w"><img src="../assets/logo-light.svg" alt="J2A"><nav><a href="#">Parcours</a><a href="#">Expertises</a><a href="#">Dirigeant</a><a class="c" href="#">Présenter mon projet</a></nav></div></header>
+<section class="hero"><div class="w"><div class="hl"><h1>Nous préparons les projets africains <b>au financement, à l'exécution et au marché.</b></h1>
+<p class="lede">Depuis Lomé, J2A Consulting relie porteurs de projets, collectivités et investisseurs, et accompagne chaque projet de l'étude jusqu'à l'implantation.</p>
+<a class="btn" href="#">Présenter mon projet</a><a class="btn g" href="#">Voir le parcours</a></div>
+<div class="ph"><img src="../assets/yaovi.jpg" alt=""></div></div></section></div>
+<section class="proof"><div class="w"><div><b>Structuration</b><p>Projets phasés, montages et modèles au standard des financeurs.</p></div><div><b>Partenariats</b><p>Acheteurs, investisseurs, bailleurs et partenaires locaux réunis.</p></div><div><b>Accès au marché</b><p>Un réseau opérationnel en Afrique de l'Ouest, relié au monde.</p></div></div></section>
+<section class="sec"><div class="w"><h2>Ce que nous faisons</h2><div class="grid">
+<div class="card"><h3>Agro-industrie</h3><p>De la parcelle au conteneur : des filières complètes, de la production à l'export.</p></div>
+<div class="card"><h3>Immobilier</h3><p>Projets résidentiels et mixtes, de la faisabilité au dossier bancaire.</p></div>
+<div class="card"><h3>Collectivités</h3><p>Transformer les besoins des communes en projets finançables.</p></div>
+<div class="card"><h3>Entrée sur le marché</h3><p>Tester l'Afrique de l'Ouest avant de s'y installer.</p></div></div></div></section>
+</body></html>

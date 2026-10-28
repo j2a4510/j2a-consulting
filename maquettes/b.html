@@ -1,0 +1,36 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maquette B · Éditorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#121212;--paper:#fbfaf7;--gold:#a8823a;--green:#1e3a33;--line:#dcd8cf;--muted:#5f5f5a}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.w{width:min(1240px,100% - 32px);margin:auto}
+header .w{display:flex;justify-content:space-between;align-items:center;height:84px;border-bottom:1px solid var(--ink)}header img{height:44px}
+nav{display:flex;gap:30px;font-size:14px;align-items:center}nav a{color:var(--ink);text-decoration:none}nav .c{border-bottom:2px solid var(--gold);padding-bottom:2px;font-weight:600}
+.hero .w{display:grid;grid-template-columns:7fr 5fr;gap:0;border-bottom:1px solid var(--ink)}
+.hl{padding:64px 56px 64px 0;border-right:1px solid var(--ink)}
+.kick{font-size:13px;color:var(--gold);font-weight:600}
+h1{font-family:Fraunces,serif;font-weight:300;font-size:clamp(40px,5.6vw,84px);line-height:1;letter-spacing:-.025em;margin:20px 0 0}h1 em{font-style:italic;font-weight:500;color:var(--green)}
+.lede{font-size:18px;line-height:1.65;color:var(--muted);margin:30px 0;max-width:46ch}
+.btn{display:inline-block;background:var(--green);color:#fff;padding:16px 26px;text-decoration:none;font-weight:600;font-size:15px}.lk{margin-left:20px;color:var(--ink);font-weight:600;font-size:15px}
+.hr{display:flex;flex-direction:column}.hr img{width:100%;flex:1;object-fit:cover;object-position:top;filter:grayscale(.15) contrast(1.05);min-height:420px}
+.cap{padding:16px 0 16px 24px;font-size:13px;color:var(--muted);border-top:1px solid var(--ink)}
+.proof .w{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--ink)}.proof div{padding:28px 28px 28px 0}.proof div+div{padding-left:28px;border-left:1px solid var(--line)}
+.proof h3{font-family:Fraunces,serif;font-weight:500;font-size:24px;margin:0}.proof p{color:var(--muted);font-size:15px;line-height:1.55;margin:8px 0 0}
+.sec .w{padding:90px 0}h2{font-family:Fraunces,serif;font-weight:300;font-size:56px;letter-spacing:-.02em;margin:0 0 40px;max-width:16ch}
+.list{border-top:1px solid var(--ink)}.row{display:grid;grid-template-columns:2fr 3fr 2fr;gap:30px;padding:26px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.row h3{font-family:Fraunces,serif;font-size:28px;font-weight:500;margin:0}.row p{margin:0;color:var(--muted);line-height:1.6}.row span{font-size:13px;color:var(--gold);font-weight:600;text-align:right}
+@media(max-width:900px){.hero .w,.proof .w,.row{grid-template-columns:1fr}.hl{border-right:0;padding-right:0}.proof div+div{border-left:0;padding-left:0}nav a:not(.c){display:none}.row span{text-align:left}}
+</style></head><body>
+<header><div class="w"><img src="../assets/logo.svg" alt="J2A"><nav><a href="#">Parcours</a><a href="#">Expertises</a><a href="#">Dirigeant</a><a class="c" href="#">Présenter mon projet</a></nav></div></header>
+<section class="hero"><div class="w"><div class="hl"><div class="kick">J2A Consulting, Lomé</div>
+<h1>Nous préparons les projets africains <em>au financement, à l'exécution et au marché.</em></h1>
+<p class="lede">Depuis Lomé, J2A Consulting relie porteurs de projets, collectivités et investisseurs, et accompagne chaque projet de l'étude jusqu'à l'implantation.</p>
+<a class="btn" href="#">Présenter mon projet</a><a class="lk" href="#">Voir le parcours</a></div>
+<div class="hr"><img src="../assets/yaovi.jpg" alt=""><div class="cap">Yaovi Kokodoko, directeur général</div></div></div></section>
+<section class="proof"><div class="w"><div><h3>Structuration</h3><p>Projets phasés, montages juridiques et financiers, modèles au standard des financeurs.</p></div><div><h3>Partenariats</h3><p>Acheteurs, investisseurs, bailleurs et partenaires locaux autour d'un même projet.</p></div><div><h3>Accès au marché</h3><p>Un réseau opérationnel en Afrique de l'Ouest, relié au monde.</p></div></div></section>
+<section class="sec"><div class="w"><h2>Ce que nous faisons</h2><div class="list">
+<div class="row"><h3>Agro-industrie</h3><p>De la parcelle au conteneur : des filières complètes, de la production à l'export.</p><span>Contrats · Certification · Campagnes</span></div>
+<div class="row"><h3>Immobilier</h3><p>Projets résidentiels et mixtes, de la faisabilité au dossier bancaire.</p><span>Faisabilité · Montage · Investisseurs</span></div>
+<div class="row"><h3>Collectivités</h3><p>Transformer les besoins des communes en projets finançables.</p><span>Plans · Bailleurs · Visibilité</span></div>
+<div class="row"><h3>Entrée sur le marché</h3><p>Tester l'Afrique de l'Ouest avant de s'y installer.</p><span>Veille · Partenaires · Représentation</span></div></div></div></section>
+</body></html>

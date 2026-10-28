@@ -1,0 +1,34 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maquette A · Clair institutionnel</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b2a3c;--ink:#14212b;--gold:#b8933f;--sand:#f7f4ee;--line:#e6e1d6;--muted:#5d6b73}
+*{box-sizing:border-box}body{margin:0;font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:#fff}
+.w{width:min(1200px,100% - 32px);margin:auto}
+header{border-bottom:1px solid var(--line);background:#fff}header .w{display:flex;align-items:center;justify-content:space-between;height:78px}
+header img{height:46px}nav{display:flex;gap:28px;align-items:center;font-weight:500;font-size:15px}nav a{color:var(--ink);text-decoration:none}
+.btn{display:inline-block;padding:14px 24px;border-radius:999px;font-weight:700;text-decoration:none;font-size:15px}.b1{background:var(--navy);color:#fff}.b2{border:1.5px solid var(--navy);color:var(--navy)}
+.hero{background:var(--sand)}.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:70px 0}
+.tag{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--muted)}
+h1{font-size:clamp(34px,4.4vw,58px);line-height:1.05;letter-spacing:-.02em;margin:18px 0 0;font-weight:800;color:var(--navy)}h1 span{color:var(--gold)}
+.lede{font-size:19px;line-height:1.6;color:var(--muted);margin:22px 0 30px;max-width:52ch}
+.ph{position:relative}.ph img{width:100%;border-radius:28px;aspect-ratio:4/4.6;object-fit:cover;object-position:top}
+.badge{position:absolute;left:-28px;bottom:36px;background:#fff;border-radius:18px;padding:16px 20px;box-shadow:0 18px 40px rgba(11,42,60,.14);max-width:260px;font-size:14px;color:var(--muted)}.badge b{display:block;color:var(--navy);font-size:16px}
+.proof .w{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:36px 0}.proof div{padding:22px;border:1px solid var(--line);border-radius:18px}.proof b{color:var(--navy)}.proof p{margin:6px 0 0;color:var(--muted);font-size:15px;line-height:1.5}
+.sec .w{padding:80px 0}h2{font-size:40px;letter-spacing:-.02em;color:var(--navy);margin:0 0 30px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.card{background:var(--sand);border-radius:22px;padding:26px}.card .ic{width:44px;height:44px;border-radius:12px;background:var(--navy);margin-bottom:18px;position:relative}.card .ic:after{content:"";position:absolute;inset:14px;border-radius:4px;background:var(--gold)}
+.card h3{margin:0;font-size:19px;color:var(--navy)}.card p{color:var(--muted);font-size:15px;line-height:1.55}
+@media(max-width:900px){.hero .w,.proof .w,.grid{grid-template-columns:1fr}nav a:not(.btn){display:none}.badge{left:12px}}
+</style></head><body>
+<header><div class="w"><img src="../assets/logo.svg" alt="J2A"><nav><a href="#">Parcours</a><a href="#">Expertises</a><a href="#">Dirigeant</a><a class="btn b1" href="#">Présenter mon projet</a></nav></div></header>
+<section class="hero"><div class="w"><div><span class="tag">Cabinet de structuration · Lomé</span>
+<h1>Nous préparons les projets africains <span>au financement, à l'exécution et au marché.</span></h1>
+<p class="lede">Depuis Lomé, J2A Consulting relie porteurs de projets, collectivités et investisseurs, et accompagne chaque projet de l'étude jusqu'à l'implantation.</p>
+<a class="btn b1" href="#">Présenter mon projet</a> &nbsp; <a class="btn b2" href="#">Voir le parcours</a></div>
+<div class="ph"><img src="../assets/yaovi.jpg" alt=""><div class="badge"><b>Yaovi Kokodoko</b>Directeur général. Afrique de l'Ouest, Europe, Golfe, Québec, Asie.</div></div></div></section>
+<section class="proof"><div class="w"><div><b>Structuration</b><p>Projets phasés, montages juridiques et financiers, modèles au standard des financeurs.</p></div><div><b>Partenariats</b><p>Acheteurs, investisseurs, bailleurs et partenaires locaux autour d'un même projet.</p></div><div><b>Accès au marché</b><p>Un réseau opérationnel en Afrique de l'Ouest, relié au monde.</p></div></div></section>
+<section class="sec"><div class="w"><h2>Ce que nous faisons</h2><div class="grid">
+<div class="card"><div class="ic"></div><h3>Agro-industrie</h3><p>De la parcelle au conteneur : des filières complètes, de la production à l'export.</p></div>
+<div class="card"><div class="ic"></div><h3>Immobilier</h3><p>Projets résidentiels et mixtes, de la faisabilité au dossier bancaire.</p></div>
+<div class="card"><div class="ic"></div><h3>Collectivités</h3><p>Transformer les besoins des communes en projets finançables.</p></div>
+<div class="card"><div class="ic"></div><h3>Entrée sur le marché</h3><p>Tester l'Afrique de l'Ouest avant de s'y installer.</p></div></div></div></section>
+</body></html>
