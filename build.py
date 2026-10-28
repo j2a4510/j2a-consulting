@@ -125,7 +125,8 @@ T = {
     eco=[("Ipomoea Africa", "https://ipomoea.africa", "Production et export agro-industriels au Togo, construits par phases."),
          ("Growing Beyond Vision", None, "Architecture d'investissement pour l'Afrique, depuis Sharjah."),
          ("Association Togolaise de la Franchise", None, "La franchise comme levier de développement des entreprises au Togo.")],
-    say="Parlons de votre projet.", c_intro="Un premier échange de trente minutes suffit pour savoir comment nous pouvons vous aider.",
+    form_cta="Présenter mon projet", or_mail="Ou écrivez-nous directement :",
+    say="Parlons de votre projet.", c_intro="Décrivez votre projet en deux minutes. Nous revenons vers vous sous 48 heures ouvrées pour convenir d'un premier échange.",
     c_tel="Téléphone", c_where="Bureau", where="Lomé, Togo", c_li="LinkedIn",
     rights="J2A Consulting SARL, Lomé, République togolaise",
 ),
@@ -184,7 +185,8 @@ T = {
     eco=[("Ipomoea Africa", "https://ipomoea.africa", "Agro-industrial production and export in Togo, built in phases."),
          ("Growing Beyond Vision", None, "Investment architecture for Africa, from Sharjah."),
          ("Togolese Franchise Association", None, "Franchising as a growth lever for businesses in Togo.")],
-    say="Let's talk about your project.", c_intro="A first thirty-minute conversation is enough to see how we can help.",
+    form_cta="Present my project", or_mail="Or write to us directly:",
+    say="Let's talk about your project.", c_intro="Describe your project in two minutes. We get back to you within two working days to arrange a first conversation.",
     c_tel="Phone", c_where="Office", where="Lomé, Togo", c_li="LinkedIn",
     rights="J2A Consulting SARL, Lomé, Togolese Republic",
 ),
@@ -256,7 +258,7 @@ def page(t):
       <h1>{t['h1_a']} <span class="verb"><span>{t['verbs'][0]}</span></span></h1>
       <p class="lede">{t['lede']}</p>
       <div class="cta-row">
-        <a class="btn btn-gold" href="#contact">{t['cta1']}</a>
+        <a class="btn btn-gold" href="https://tally.so/r/rDD17N" data-tally-open="rDD17N" data-tally-layout="modal" data-tally-width="640" data-tally-emoji-animation="none">{t['cta1']}</a>
         <a class="btn btn-ghost" href="#parcours">{t['cta2']}</a>
       </div>
     </div>
@@ -361,6 +363,8 @@ def page(t):
   <div class="wrap">
     <div class="say">{t['say']}</div>
     <p style="color:#b9c6cb;margin-top:22px">{t['c_intro']}</p>
+    <div class="cta-row"><a class="btn btn-gold" href="https://tally.so/r/rDD17N" data-tally-open="rDD17N" data-tally-layout="modal" data-tally-width="640" data-tally-emoji-animation="none">{t['form_cta']}</a></div>
+    <p class="or">{t['or_mail']}</p>
     <a class="mail" href="mailto:ykstrategic@proton.me">ykstrategic@proton.me</a>
     <div class="contact-meta">
       <div><span>{t['c_tel']}</span><a href="tel:+22871527976">+228 71 52 79 76</a></div>
@@ -374,6 +378,7 @@ def page(t):
 </footer>
 <script type="application/json" id="site-data">{data}</script>
 <script src="{b}assets/app.js" defer></script>
+<script src="https://tally.so/widgets/embed.js" async></script>
 </body>
 </html>
 """
