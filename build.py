@@ -100,6 +100,12 @@ T = {
          ("Immobilier", "Projets résidentiels et mixtes, de la faisabilité au dossier bancaire.", ["Études de faisabilité", "Montage financier", "Dossiers bancaires", "Recherche d'investisseurs"]),
          ("Collectivités", "Nous aidons les communes à transformer leurs besoins en projets que les bailleurs peuvent financer.", ["Plans d'investissement", "Projets prioritaires", "Partenariats avec les bailleurs", "Visibilité internationale"]),
          ("Entrée sur le marché", "Pour les entreprises étrangères qui veulent tester l'Afrique de l'Ouest avant de s'y installer.", ["Veille et données de marché", "Partenaires et distributeurs", "Prospection active", "Représentation locale"])],
+    case_title="Sur notre table en ce moment",
+    case_name="Une filière agro-industrielle d'export, au Togo",
+    case_lede="Du foncier et un acheteur européen intéressé, mais ni plan de financement, ni certification, ni organisation de production. Voici où en est le dossier.",
+    case_steps=[("Fait", "Projet découpé en phases, de l'export du frais à la transformation"), ("Fait", "Dossiers distincts pour les banques locales et pour les fonds"), ("En cours", "Programme d'expéditions et contrat cadre avec l'importateur"), ("En cours", "Certification bio par un organisme reconnu par l'UE")],
+    case_more="D'autres dossiers en immobilier, auprès de collectivités et en entrée sur le marché sont présentés sur demande, sous accord de confidentialité.",
+    case_cta="Recevoir une présentation détaillée", case_subject="Demande de présentation détaillée",
     m_title="J2A Market Access",
     m_text=["Se développer en Afrique de l'Ouest sans ouvrir tout de suite une filiale. Présence commerciale, connaissance du marché, opportunités qualifiées et représentation locale, activées par étapes selon les résultats.",
             "Pour les gouvernements, fonds souverains, family offices et groupes internationaux, nous montons aussi des mandats sur mesure."],
@@ -153,6 +159,12 @@ T = {
          ("Real estate", "Residential and mixed-use projects, from feasibility to the bank file.", ["Feasibility studies", "Financial structuring", "Bank files", "Investor search"]),
          ("Local governments", "We help municipalities turn their needs into projects that donors can finance.", ["Investment plans", "Priority projects", "Donor partnerships", "International visibility"]),
          ("Market entry", "For foreign companies that want to test West Africa before setting up.", ["Market intelligence", "Partners and distributors", "Active business development", "Local representation"])],
+    case_title="On our desk right now",
+    case_name="An agro-industrial export value chain in Togo",
+    case_lede="Land and an interested European buyer, but no financing plan, no certification and no production organisation. Here is where the file stands.",
+    case_steps=[("Done", "Project broken into phases, from fresh export to processing"), ("Done", "Separate files for local banks and for investment funds"), ("In progress", "Shipping programme and framework contract with the importer"), ("In progress", "Organic certification by an EU-recognised body")],
+    case_more="Other files in real estate, with local governments and in market entry are presented on request, under a confidentiality agreement.",
+    case_cta="Request a detailed presentation", case_subject="Request for a detailed presentation",
     m_title="J2A Market Access",
     m_text=["Grow in West Africa without opening a subsidiary right away. Commercial presence, market intelligence, qualified opportunities and local representation, activated step by step as results come in.",
             "For governments, sovereign funds, family offices and multinationals, we also structure bespoke mandates."],
@@ -196,6 +208,7 @@ def page(t):
         f'<p class="lead-in">{p}</p><ul>' + "".join(f"<li>{x}</li>" for x in li) + "</ul></div>"
         for k, (_, p, li) in enumerate(t["exp"]))
     rungs = "".join(f'<button class="rung" aria-pressed="false">{x["name"]}<small>{x["short"]}</small></button>' for x in t["tiers"])
+    csteps = "".join(f'<li><span class="st{" st-on" if k < 2 else ""}">{a}</span>{b}</li>' for k, (a, b) in enumerate(t["case_steps"]))
     mtext = "".join(f"<p>{p}</p>" for p in t["m_text"])
     lead = "".join(f"<p>{p}</p>" for p in t["lead"])
     eco = "".join(
@@ -284,6 +297,21 @@ def page(t):
     <div class="switcher">
       <div class="tabs" role="tablist" aria-label="{t['exp_title']}">{tabs}</div>
       <div>{tps}</div>
+    </div>
+  </div>
+</section>
+
+<section class="case">
+  <div class="wrap case-grid">
+    <div>
+      <h2>{t['case_title']}</h2>
+      <p class="case-name">{t['case_name']}</p>
+      <p>{t['case_lede']}</p>
+    </div>
+    <div>
+      <ul class="case-steps">{csteps}</ul>
+      <p class="case-more">{t['case_more']}</p>
+      <a class="btn btn-ink" href="mailto:ykstrategic@proton.me?subject={t['case_subject']}">{t['case_cta']}</a>
     </div>
   </div>
 </section>
