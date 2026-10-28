@@ -83,6 +83,7 @@ T = {
     cta1="Parler de votre projet", cta2="Voir le parcours",
     map_title="Les corridors de J2A Consulting au départ de Lomé",
     map_hint="Choisissez une ville pour voir ce que nous y faisons.",
+    corr_title="Nos corridors", corr_intro="Lomé au centre, cinq directions. Chacune correspond à un type de partenaires que nous mobilisons pour vos projets.",
     cities=[
         dict(name="Dakar", region="Afrique de l'Ouest et centrale", text="Notre terrain. Un réseau opérationnel dans une dizaine de pays, du Sénégal au Cameroun, pour étudier, prospecter et implanter."),
         dict(name="Paris", region="Europe", text="Acheteurs, importateurs, financeurs d'impact et diaspora : nous ouvrons les débouchés et les sources de financement."),
@@ -146,6 +147,7 @@ T = {
     cta1="Discuss your project", cta2="See the journey",
     map_title="J2A Consulting's corridors from Lomé",
     map_hint="Pick a city to see what we do there.",
+    corr_title="Our corridors", corr_intro="Lomé at the centre, five directions. Each one stands for a type of partner we bring to your projects.",
     cities=[
         dict(name="Dakar", region="West and Central Africa", text="Our home ground. An operational network across some ten countries, from Senegal to Cameroon, to study, prospect and set up."),
         dict(name="Paris", region="Europe", text="Buyers, importers, impact investors and the diaspora: we open markets and sources of financing."),
@@ -255,7 +257,7 @@ def page(t):
 <link rel="icon" href="{b}assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{b}assets/style.css">
 </head>
 <body>
@@ -278,17 +280,24 @@ def page(t):
         <a class="btn btn-ghost" href="#parcours">{t['cta2']}</a>
       </div>
     </div>
-    <div class="corridor reveal d4">
-      {corridor_svg(t)}
-      <div class="corridor-card" aria-live="polite"></div>
-      <div class="corridor-hint">{t['map_hint']}</div>
-    </div>
+    <div class="hero-photo reveal d4"><img src="{b}assets/yaovi.jpg" alt="{t['photo_alt']}" width="900" height="1125"></div>
   </div>
-  <div class="scroll-cue" aria-hidden="true"></div>
 </section>
 
 <section class="proof" aria-label="J2A">
   <div class="wrap proof-grid">{proof}</div>
+</section>
+
+<section class="corridors">
+  <div class="wrap corridors-grid">
+    <div>
+      <h2>{t['corr_title']}</h2>
+      <p class="corr-intro">{t['corr_intro']}</p>
+      <div class="corridor-card" aria-live="polite"></div>
+      <div class="corridor-hint">{t['map_hint']}</div>
+    </div>
+    <div class="corridor">{corridor_svg(t)}</div>
+  </div>
 </section>
 
 <section class="manifesto">
@@ -348,8 +357,7 @@ def page(t):
 </section>
 
 <section class="leader" id="dirigeant">
-  <div class="leader-grid">
-    <div class="portrait"><img src="{b}assets/yaovi.jpg" alt="{t['photo_alt']}" loading="lazy" width="900" height="1125"></div>
+  <div class="wrap leader-grid">
     <div class="leader-text">
       <h2 class="sr">{t['lead_title']}</h2>
       <div class="name">{t['lead_name']}</div>
