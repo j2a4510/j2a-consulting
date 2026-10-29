@@ -11,13 +11,18 @@ def xy(lon, lat):
     return round((lon + 180) / 360 * 1000, 1), round((90 - lat) / 180 * 500, 1)
 
 HUB = ("Lomé", 1.22, 6.13)
-COORDS = [(-17.45, 14.69), (2.35, 48.86), (-73.57, 45.50), (55.30, 25.27), (121.47, 31.23)]
+# Dakar, Conakry, Casablanca, Paris, Londres, Montréal, Dubaï, Shanghai, Bangkok, Singapour, Sydney
+COORDS = [(-17.45, 14.69), (-13.71, 9.51), (-7.59, 33.57), (2.35, 48.86), (-0.13, 51.51), (-73.57, 45.50),
+          (55.30, 25.27), (121.47, 31.23), (100.50, 13.75), (103.82, 1.35), (151.21, -33.87)]
+# Position de l'étiquette de chaque ville : côté ("l" gauche, "r" droite) et décalage vertical
+LABELS = [("l", -7), ("l", 16), ("l", -7), ("r", -7), ("l", -7), ("l", -7),
+          ("r", -7), ("r", -7), ("r", -7), ("r", 16), ("l", -7)]
 
 def corridor_svg(t):
     hx, hy = xy(HUB[1], HUB[2])
-    out = [f'<svg viewBox="236 92 690 168" role="group" aria-label="{t["map_title"]}">']
+    out = [f'<svg viewBox="236 84 690 278" role="group" aria-label="{t["map_title"]}">']
     for gx in range(242, 926, 16):
-        for gy in range(98, 258, 16):
+        for gy in range(90, 362, 16):
             out.append(f'<circle class="grid-dot" cx="{gx}" cy="{gy}" r="1"/>')
     pts = []
     for (lon, lat) in COORDS:
@@ -34,13 +39,14 @@ def corridor_svg(t):
     for k in range(len(pts)):
         out.append(f'<circle class="pulse" r="2.4"><animateMotion dur="{3.2 + k * 0.5}s" repeatCount="indefinite"><mpath href="#r{k}"/></animateMotion></circle>')
     for k, ((x, y), c) in enumerate(zip(pts, t["cities"])):
-        left = x < hx - 20
-        tx = x - 9 if left else x + 9
+        side, dy = LABELS[k]
+        left = side == "l"
+        tx = round(x - 9 if left else x + 9, 1)
         anchor = "end" if left else "start"
         out.append(
             f'<g class="city" tabindex="0" role="button" aria-pressed="false" aria-label="{c["name"]} : {c["region"]}">'
             f'<circle class="halo" cx="{x}" cy="{y}" r="13"/><circle class="pt" cx="{x}" cy="{y}" r="3.6"/>'
-            f'<text x="{tx}" y="{y - 7}" text-anchor="{anchor}">{c["name"]}</text></g>')
+            f'<text x="{tx}" y="{round(y + dy, 1)}" text-anchor="{anchor}">{c["name"]}</text></g>')
     out.append(f'<circle class="hub-ring" cx="{hx}" cy="{hy}" r="9"/>')
     out.append(f'<circle class="hub" cx="{hx}" cy="{hy}" r="5"/>')
     out.append(f'<text class="hub-label" x="{hx + 13}" y="{hy + 17}">{HUB[0]}</text>')
@@ -71,26 +77,45 @@ def orbit_svg(t):
     return "\n".join(out)
 
 T = {
-"fr": dict(
+ "fr": dict(
     lang="fr", path="", locale="fr_FR", other_href="en/", other_label="English", base="",
+    skip="Aller au contenu",
     title="J2A Consulting | Structuration de projets, préparation au financement et accès au marché en Afrique de l'Ouest",
     desc="J2A Consulting, cabinet basé à Lomé, structure les projets, prépare les dossiers de financement et facilite l'accès aux marchés en Afrique de l'Ouest, en lien avec l'Europe, le Golfe, le Québec et l'Asie.",
-    nav=[("#parcours", "Parcours"), ("#expertises", "Expertises"), ("#dirigeant", "Dirigeant"), ("#contact", "Contact")],
+    nav=[("#parcours", "Parcours"), ("#expertises", "Expertises"), ("#filieres", "Filières"), ("#dirigeant", "Dirigeant"), ("#contact", "Contact")],
     h1='Nous préparons les projets africains <span class="g">au financement, à l\'exécution et au marché.</span>',
-    proof=[("Structuration", "Projets phasés, montages juridiques et financiers, modèles au standard des financeurs."), ("Partenariats", "Acheteurs, investisseurs, bailleurs et partenaires locaux, réunis autour d\'un même projet."), ("Accès au marché", "Un réseau opérationnel en Afrique de l\'Ouest, relié à l\'Europe, au Golfe, au Québec et à l\'Asie.")],
+    proof=[("Structuration", "Projets phasés, montages juridiques et financiers, modèles au standard des financeurs."), ("Partenariats", "Acheteurs, investisseurs, bailleurs et partenaires locaux, réunis autour d\'un même projet."), ("Accès au marché", "Un réseau opérationnel en Afrique de l\'Ouest, relié à l\'Europe, au Maghreb, au Golfe, au Canada, à l\'Asie et à l\'Australie.")],
     eco_roles=["Exécution opérationnelle", "Architecture d\'investissement internationale", "Réseau institutionnel"],
     h1_a="Nous préparons les projets africains", verbs=["au financement.", "à l'exécution.", "au marché."],
     lede="Depuis Lomé, J2A Consulting relie porteurs de projets, collectivités et investisseurs, et accompagne chaque projet de l'étude jusqu'à l'implantation.",
     cta1="Parler de votre projet", cta2="Voir le parcours",
+    figs_label="J2A en chiffres",
+    figs=[("11", "corridors internationaux, de Dakar à Sydney"),
+          ("4", "domaines d'expertise : agro-industrie, immobilier, collectivités, entrée sur le marché"),
+          ("300 ha", "de filière d'export bio en structuration au Togo"),
+          ("48 h", "pour une première réponse à votre projet")],
     map_title="Les corridors de J2A Consulting au départ de Lomé",
     map_hint="Choisissez une ville pour voir ce que nous y faisons.",
-    corr_title="Nos corridors", corr_intro="Lomé au centre, cinq directions. Chacune correspond à un type de partenaires que nous mobilisons pour vos projets.",
+    port_alt="Porte-conteneurs et grues au port de Lomé, vus depuis la plage", port_cap="Le port de Lomé, point de départ de nos corridors.", port_credit="Photo :",
+    consult_kicker="Premier échange offert", consult_title="30 minutes pour faire le point sur votre projet",
+    consult_lede="Un premier échange en visioconférence ou à Lomé, sans engagement. Décrivez votre projet en deux minutes : nous revenons vers vous sous 48 heures ouvrées pour fixer le rendez-vous.",
+    consult_cta="Réserver mon premier échange",
+    consult_get_title="Ce que vous en retirez",
+    consult_get=["Un regard extérieur sur votre projet, ses atouts et ses points de vigilance", "Les prochaines étapes concrètes, dans le bon ordre", "Une indication claire de ce que J2A peut faire pour vous, ou non"],
+    consult_note="Pour bien préparer l'échange, nous vous demandons le type de projet, le pays et son stade d'avancement : idée, étude ou recherche de financement.",
+    corr_title="Nos corridors", corr_intro="Lomé au centre, onze destinations. Chacune correspond à un type de partenaires que nous mobilisons pour vos projets.",
     cities=[
-        dict(name="Dakar", region="Afrique de l'Ouest et centrale", text="Notre terrain. Un réseau opérationnel dans une dizaine de pays, du Sénégal au Cameroun, pour étudier, prospecter et implanter."),
-        dict(name="Paris", region="Europe", text="Acheteurs, importateurs, financeurs d'impact et diaspora : nous ouvrons les débouchés et les sources de financement."),
-        dict(name="Montréal", region="Québec et Canada", text="Partenariats entre le Canada et l'Afrique de l'Ouest, missions d'entreprises et liens avec la diaspora."),
+        dict(name="Dakar", region="Afrique de l'Ouest francophone", text="Notre terrain. Un réseau opérationnel dans une dizaine de pays, du Sénégal au Cameroun, pour étudier, prospecter et implanter."),
+        dict(name="Conakry", region="Guinée", text="Un marché en forte croissance, où nous accompagnons des projets et des partenaires locaux."),
+        dict(name="Casablanca", region="Maroc", text="Ingénierie et études avec nos partenaires marocains, et passerelle vers les investisseurs et les industriels du Royaume."),
+        dict(name="Paris", region="France", text="Acheteurs, importateurs, financeurs d'impact et diaspora : nous ouvrons les débouchés et les sources de financement."),
+        dict(name="Londres", region="Royaume-Uni", text="Investisseurs, fonds d'impact et institutions financières, et liens avec la diaspora."),
+        dict(name="Montréal", region="Canada et Québec", text="Partenariats entre le Canada et l'Afrique de l'Ouest, missions d'entreprises et liens avec la diaspora."),
         dict(name="Dubaï", region="Golfe", text="Avec Growing Beyond Vision, basée à Sharjah, nous connectons les investisseurs du Golfe aux projets africains."),
-        dict(name="Shanghai", region="Asie", text="Industriels, équipementiers et partenaires asiatiques qui veulent entrer sur le marché ouest-africain."),
+        dict(name="Shanghai", region="Chine", text="Industriels, équipementiers et partenaires chinois qui veulent entrer sur le marché ouest-africain."),
+        dict(name="Bangkok", region="Thaïlande", text="Fournisseurs, technologies agro-industrielles et partenaires commerciaux pour les filières africaines."),
+        dict(name="Singapour", region="Singapour", text="Place financière et commerciale de l'Asie du Sud-Est : négoce, financement du commerce et investisseurs."),
+        dict(name="Sydney", region="Australie", text="Investisseurs et entreprises australiens intéressés par l'Afrique de l'Ouest, notamment dans l'agriculture et les ressources."),
     ],
     big="Un bon projet ne suffit pas. <b>Entre l'idée et le financement, il manque presque toujours un dossier.</b>",
     cols=["Le dossier au standard des banques et des fonds, la structure juridique claire, le plan par phases, les partenaires au bon endroit : c'est ce qui sépare un projet solide d'un projet financé.",
@@ -104,7 +129,26 @@ T = {
     exp=[("Agro-industrie", "De la parcelle au conteneur : nous structurons des filières complètes, de la production à l'export.", ["Contrats avec les acheteurs", "Certification et qualité", "Financement des campagnes", "Unités de transformation"]),
          ("Immobilier", "Projets résidentiels et mixtes, de la faisabilité au dossier bancaire.", ["Études de faisabilité", "Montage financier", "Dossiers bancaires", "Recherche d'investisseurs"]),
          ("Collectivités", "Nous aidons les communes à transformer leurs besoins en projets que les bailleurs peuvent financer.", ["Plans d'investissement", "Projets prioritaires", "Partenariats avec les bailleurs", "Visibilité internationale"]),
-         ("Entrée sur le marché", "Pour les entreprises étrangères qui veulent tester l'Afrique de l'Ouest avant de s'y installer.", ["Veille et données de marché", "Partenaires et distributeurs", "Prospection active", "Représentation locale"])],
+         ("Entrée sur le marché", "Pour les entreprises étrangères qui veulent tester l'Afrique de l'Ouest avant de s'y installer.", ["Veille et données de marché", "Partenaires et distributeurs", "Prospection active", "Représentation locale"]),
+         ("IA et entrepreneuriat", "Nous appliquons l'intelligence artificielle et les méthodes d'entrepreneuriat aux projets, avec des partenaires spécialisés.", ["Planification et simulation par l'IA", "Programmes d'incubation", "Mentorat assisté par l'IA", "Formation des équipes"])],
+    agro_kicker="Coopératives et filières agricoles",
+    agro_title="Des coopératives prêtes à vendre et à être financées",
+    agro_lede="Les coopératives et les associations villageoises ont la terre et le savoir-faire. Il leur manque souvent un acheteur sous contrat, une organisation reconnue et un accès au financement. Nous faisons le lien, du diagnostic au suivi des campagnes.",
+    agro_photo_alt="Réunion d'échange avec des producteurs sous une paillote, au Togo", agro_photo_cap="Échange avec des producteurs, au Togo.",
+    band_alt="Parcelles en végétation naturelle sous un ciel lumineux, au Togo", band_cap="Sur le terrain, au Togo.",
+    agro=[("Diagnostic et notation", "Statut, foncier, gouvernance, volumes, comptes. Chaque coopérative reçoit une note A, B ou C : ce qui est finançable aujourd'hui, et ce qui reste à construire."),
+          ("Structuration", "Mise en conformité avec l'Acte uniforme OHADA, gouvernance, comptabilité simple et formation des gérants."),
+          ("Certification et contrôle interne", "Préparation à la certification bio de groupe et tenue du système de contrôle interne exigé par les organismes certificateurs."),
+          ("Mise en marché", "Recherche d'acheteurs et contrats d'achat : volumes, qualité, prix plancher et primes."),
+          ("Financement des campagnes", "Crédit de campagne adossé aux contrats, warrantage, garanties et subventions. Les fonds sont versés directement aux coopératives."),
+          ("Suivi pour les financeurs", "Des rapports réguliers sur les livraisons, les stocks et les remboursements, pour que chacun sache où en est la campagne.")],
+    agro_who_title="Avec qui nous travaillons",
+    agro_who=[("Coopératives et unions", "Un débouché sûr et un accès au crédit."),
+              ("Acheteurs et exportateurs", "Des volumes réguliers, traçables et certifiés."),
+              ("Bailleurs et fonds d'impact", "Des dossiers solides et un relais sur le terrain."),
+              ("Communes", "Des pôles agricoles qui créent des emplois pour les jeunes.")],
+    agro_rule="<b>Notre règle :</b> nous ne gérons jamais les fonds. Les financements vont aux coopératives, les contrats sont signés entre les parties, et notre rémunération est connue de tous.",
+    agro_cta="Présenter une coopérative ou une filière", agro_subject="Coopérative ou filière à accompagner",
     case_title="Sur notre table en ce moment",
     case_name="Une filière agro-industrielle d'export, au Togo",
     case_lede="Du foncier et un acheteur européen intéressé, mais ni plan de financement, ni certification, ni organisation de production. Voici où en est le dossier.",
@@ -127,6 +171,11 @@ T = {
     photo_alt="Portrait de Yaovi Kokodoko",
     eco_title="L'écosystème J2A", eco_short=["Ipomoea Africa", "GBV", "Franchise Togo"],
     eco_intro="J2A est au centre d'un ensemble de projets et de partenaires qui se renforcent les uns les autres.",
+    partners_title="Nos partenaires", partners_link="Voir le site",
+    partners=[("Lean Hub Asia", "https://www.leanhubasia.com/", "Singapour", "Cabinet de transformation B2B, du lean au numérique, pour l'industrie, les infrastructures et la chaîne logistique."),
+              ("InnovNation", "https://innovnation.ai/", "IA et entrepreneuriat", "Plateforme d'entrepreneuriat fondée sur l'IA pour les universités, les gouvernements et les incubateurs. Avec Lean Hub Asia, J2A en porte un projet de déploiement en Afrique de l'Ouest francophone."),
+              ("SIMCEL", "https://www.simcel.io/", "IA et planification", "Plateforme de planification intégrée par l'IA et les jumeaux numériques. J2A accompagne son développement en Afrique de l'Ouest."),
+              ("CEFAAT-SFER", None, "Togo", "Centrale entrepreneuriale et des filières agricoles : foncier agricole et programmes de production au Togo.")],
     eco=[("Ipomoea Africa", "https://ipomoea.africa", "Production et export agro-industriels au Togo, construits par phases."),
          ("Growing Beyond Vision", None, "Architecture d'investissement pour l'Afrique, depuis Sharjah."),
          ("Association Togolaise de la Franchise", None, "La franchise comme levier de développement des entreprises au Togo.")],
@@ -135,26 +184,45 @@ T = {
     c_tel="Téléphone", c_where="Bureau", where="Lomé, Togo", c_li="LinkedIn",
     rights="J2A Consulting SARL, Lomé, République togolaise",
 ),
-"en": dict(
+ "en": dict(
     lang="en", path="en/", locale="en_GB", other_href="../", other_label="Français", base="../",
+    skip="Skip to content",
     title="J2A Consulting | Project structuring, financing readiness and market access in West Africa",
     desc="J2A Consulting, based in Lomé, structures projects, prepares financing files and facilitates market access in West Africa, with links to Europe, the Gulf, Quebec and Asia.",
-    nav=[("#parcours", "Journey"), ("#expertises", "Expertise"), ("#dirigeant", "Leadership"), ("#contact", "Contact")],
+    nav=[("#parcours", "Journey"), ("#expertises", "Expertise"), ("#filieres", "Value chains"), ("#dirigeant", "Leadership"), ("#contact", "Contact")],
     h1='We get African projects <span class="g">ready for financing, execution and market.</span>',
-    proof=[("Structuring", "Phased projects, legal and financial set-ups, models built to financier standards."), ("Partnerships", "Buyers, investors, donors and local partners, brought together around one project."), ("Market access", "An operational network in West Africa, connected to Europe, the Gulf, Quebec and Asia.")],
+    proof=[("Structuring", "Phased projects, legal and financial set-ups, models built to financier standards."), ("Partnerships", "Buyers, investors, donors and local partners, brought together around one project."), ("Market access", "An operational network in West Africa, connected to Europe, North Africa, the Gulf, Canada, Asia and Australia.")],
     eco_roles=["Operational execution", "International investment architecture", "Institutional network"],
     h1_a="We get African projects ready", verbs=["for financing.", "for execution.", "for market."],
     lede="From Lomé, J2A Consulting connects project owners, local governments and investors, and stays with each project from first study to implementation.",
     cta1="Discuss your project", cta2="See the journey",
+    figs_label="J2A in figures",
+    figs=[("11", "international corridors, from Dakar to Sydney"),
+          ("4", "areas of expertise: agribusiness, real estate, local governments, market entry"),
+          ("300 ha", "organic export value chain being structured in Togo"),
+          ("48 h", "for a first answer on your project")],
     map_title="J2A Consulting's corridors from Lomé",
     map_hint="Pick a city to see what we do there.",
-    corr_title="Our corridors", corr_intro="Lomé at the centre, five directions. Each one stands for a type of partner we bring to your projects.",
+    port_alt="Container ships and cranes at the port of Lomé, seen from the beach", port_cap="The port of Lomé, where our corridors begin.", port_credit="Photo:",
+    consult_kicker="First conversation, on us", consult_title="30 minutes to take stock of your project",
+    consult_lede="A first conversation by video call or in Lomé, with no commitment. Describe your project in two minutes: we get back to you within two working days to set the appointment.",
+    consult_cta="Book my first conversation",
+    consult_get_title="What you take away",
+    consult_get=["An outside view of your project, its strengths and the points to watch", "The next concrete steps, in the right order", "A clear sense of what J2A can do for you, or not"],
+    consult_note="To prepare the conversation well, we ask for the type of project, the country and its stage: idea, study or financing search.",
+    corr_title="Our corridors", corr_intro="Lomé at the centre, eleven destinations. Each one stands for a type of partner we bring to your projects.",
     cities=[
-        dict(name="Dakar", region="West and Central Africa", text="Our home ground. An operational network across some ten countries, from Senegal to Cameroon, to study, prospect and set up."),
-        dict(name="Paris", region="Europe", text="Buyers, importers, impact investors and the diaspora: we open markets and sources of financing."),
-        dict(name="Montréal", region="Quebec and Canada", text="Canada–West Africa partnerships, business missions and diaspora links."),
+        dict(name="Dakar", region="French-speaking West Africa", text="Our home ground. An operational network across some ten countries, from Senegal to Cameroon, to study, prospect and set up."),
+        dict(name="Conakry", region="Guinea", text="A fast-growing market where we support projects and local partners."),
+        dict(name="Casablanca", region="Morocco", text="Engineering and studies with our Moroccan partners, and a bridge to the Kingdom's investors and manufacturers."),
+        dict(name="Paris", region="France", text="Buyers, importers, impact investors and the diaspora: we open markets and sources of financing."),
+        dict(name="London", region="United Kingdom", text="Investors, impact funds and financial institutions, and links with the diaspora."),
+        dict(name="Montréal", region="Canada and Quebec", text="Canada–West Africa partnerships, business missions and diaspora links."),
         dict(name="Dubai", region="The Gulf", text="With Growing Beyond Vision, based in Sharjah, we connect Gulf investors with African projects."),
-        dict(name="Shanghai", region="Asia", text="Manufacturers, equipment suppliers and Asian partners entering the West African market."),
+        dict(name="Shanghai", region="China", text="Manufacturers, equipment suppliers and Chinese partners entering the West African market."),
+        dict(name="Bangkok", region="Thailand", text="Suppliers, agro-processing technology and trading partners for African value chains."),
+        dict(name="Singapore", region="Singapore", text="South-East Asia's financial and trading hub: commodity trading, trade finance and investors."),
+        dict(name="Sydney", region="Australia", text="Australian investors and companies interested in West Africa, notably in agriculture and natural resources."),
     ],
     big="A good project is not enough. <b>Between the idea and the financing, what is missing is almost always a file.</b>",
     cols=["A file that meets bank and fund standards, a clear legal structure, a phased plan, the right partners in the right place: that is what separates a sound project from a financed one.",
@@ -168,7 +236,26 @@ T = {
     exp=[("Agribusiness", "From the field to the container: we structure complete value chains, from production to export.", ["Buyer contracts", "Certification and quality", "Seasonal financing", "Processing units"]),
          ("Real estate", "Residential and mixed-use projects, from feasibility to the bank file.", ["Feasibility studies", "Financial structuring", "Bank files", "Investor search"]),
          ("Local governments", "We help municipalities turn their needs into projects that donors can finance.", ["Investment plans", "Priority projects", "Donor partnerships", "International visibility"]),
-         ("Market entry", "For foreign companies that want to test West Africa before setting up.", ["Market intelligence", "Partners and distributors", "Active business development", "Local representation"])],
+         ("Market entry", "For foreign companies that want to test West Africa before setting up.", ["Market intelligence", "Partners and distributors", "Active business development", "Local representation"]),
+         ("AI and entrepreneurship", "We apply artificial intelligence and entrepreneurship methods to projects, with specialised partners.", ["AI planning and simulation", "Incubation programmes", "AI-assisted mentoring", "Team training"])],
+    agro_kicker="Cooperatives and agricultural value chains",
+    agro_title="Cooperatives ready to sell and to be financed",
+    agro_lede="Cooperatives and village associations have the land and the know-how. What they usually lack is a buyer under contract, a recognised organisation and access to finance. We make the link, from the first diagnosis to monitoring each season.",
+    agro_photo_alt="Meeting with farmers under a thatched shelter, Togo", agro_photo_cap="Meeting with farmers in Togo.",
+    band_alt="Land under natural vegetation beneath a bright sky, Togo", band_cap="In the field, Togo.",
+    agro=[("Diagnosis and rating", "Legal status, land, governance, volumes, accounts. Each cooperative gets an A, B or C rating: what can be financed today, and what still needs to be built."),
+          ("Structuring", "Compliance with the OHADA Uniform Act on cooperatives, governance, simple bookkeeping and manager training."),
+          ("Certification and internal control", "Preparation for group organic certification and running the internal control system that certification bodies require."),
+          ("Market access", "Finding buyers and drafting purchase contracts: volumes, quality, floor prices and premiums."),
+          ("Seasonal financing", "Crop finance backed by purchase contracts, warehouse receipts, guarantees and grants. Funds go directly to the cooperatives."),
+          ("Reporting to financiers", "Regular reports on deliveries, stocks and repayments, so everyone knows where the season stands.")],
+    agro_who_title="Who we work with",
+    agro_who=[("Cooperatives and unions", "A secure market and access to credit."),
+              ("Buyers and exporters", "Regular, traceable and certified volumes."),
+              ("Donors and impact funds", "Sound files and a partner on the ground."),
+              ("Municipalities", "Agricultural hubs that create jobs for young people.")],
+    agro_rule="<b>Our rule:</b> we never handle the funds. Financing goes to the cooperatives, contracts are signed between the parties, and our fees are disclosed to everyone.",
+    agro_cta="Present a cooperative or a value chain", agro_subject="Cooperative or value chain to support",
     case_title="On our desk right now",
     case_name="An agro-industrial export value chain in Togo",
     case_lede="Land and an interested European buyer, but no financing plan, no certification and no production organisation. Here is where the file stands.",
@@ -191,6 +278,11 @@ T = {
     photo_alt="Portrait of Yaovi Kokodoko",
     eco_title="The J2A ecosystem", eco_short=["Ipomoea Africa", "GBV", "Franchise Togo"],
     eco_intro="J2A sits at the centre of a set of projects and partners that strengthen one another.",
+    partners_title="Our partners", partners_link="Visit website",
+    partners=[("Lean Hub Asia", "https://www.leanhubasia.com/", "Singapore", "B2B transformation consultancy, from lean to digital, for industry, infrastructure and supply chains."),
+              ("InnovNation", "https://innovnation.ai/", "AI and entrepreneurship", "An AI-native entrepreneurship platform for universities, governments and incubators. With Lean Hub Asia, J2A is leading a plan to roll it out across French-speaking West Africa."),
+              ("SIMCEL", "https://www.simcel.io/", "AI and planning", "An integrated business planning platform built on AI and digital twins. J2A supports its development in West Africa."),
+              ("CEFAAT-SFER", None, "Togo", "An agricultural business and value-chain hub: farmland and production programmes in Togo.")],
     eco=[("Ipomoea Africa", "https://ipomoea.africa", "Agro-industrial production and export in Togo, built in phases."),
          ("Growing Beyond Vision", None, "Investment architecture for Africa, from Sharjah."),
          ("Togolese Franchise Association", None, "Franchising as a growth lever for businesses in Togo.")],
@@ -232,6 +324,17 @@ def page(t):
     expg = "".join(
         f'<article class="exp-card"><h3>{h}</h3><p>{p}</p><ul>' + "".join(f"<li>{x}</li>" for x in li) + "</ul></article>"
         for h, p, li in t["exp"])
+    agro = "".join(
+        f'<li><span class="n" aria-hidden="true">{i:02d}</span><h3>{h}</h3><p>{p}</p></li>'
+        for i, (h, p) in enumerate(t["agro"], 1))
+    consult_get = "".join(f"<li>{x}</li>" for x in t["consult_get"])
+    partners = "".join(
+        f'<article class="partner"><span class="role">{r}</span><h4>{n}</h4><p>{p}</p>'
+        + (f'<a class="partner-link" href="{u}" target="_blank" rel="noopener">{t["partners_link"]} <span aria-hidden="true">↗</span></a>' if u else "")
+        + "</article>"
+        for n, u, r, p in t["partners"])
+    figs = "".join(f"<div><dt>{n}</dt><dd>{d}</dd></div>" for n, d in t["figs"])
+    agro_who = "".join(f"<div><h3>{h}</h3><p>{p}</p></div>" for h, p in t["agro_who"])
     eco3 = "".join(
         f'<div class="eco-col"><span class="role">{r}</span><h3>' + (f'<a href="{u}" rel="noopener">{n}</a>' if u else n) + f'</h3><p>{p}</p></div>'
         for (n, u, p), r in zip(t["eco"], t["eco_roles"]))
@@ -258,19 +361,20 @@ def page(t):
 <link rel="icon" href="{b}assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{b}assets/style.css?v={VER}">
 </head>
 <body>
+<a class="skip-link" href="#main">{t['skip']}</a>
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="{b if b else './'}"><img src="{b}assets/logo-light.svg" alt="J2A Consulting"></a>
+    <a class="brand" href="{b if b else './'}"><img src="{b}assets/logo.svg" alt="J2A Consulting"></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="mainnav"><span class="sr">Menu</span><i></i><i></i></button>
     <nav class="nav" id="mainnav" aria-label="Navigation">{nav}<a class="nav-cta" href="https://tally.so/r/rDD17N" data-tally-open="rDD17N" data-tally-layout="modal" data-tally-width="640" data-tally-emoji-animation="none">{t['form_cta']}</a><a class="lang" href="{t['other_href']}" lang="{'en' if t['lang'] == 'fr' else 'fr'}">{t['other_label']}</a></nav>
   </div>
 </header>
 
-<main>
+<main id="main">
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
@@ -281,7 +385,7 @@ def page(t):
         <a class="btn btn-ghost" href="#parcours">{t['cta2']}</a>
       </div>
     </div>
-    <div class="hero-photo reveal d4"><img src="{b}assets/yaovi.jpg" alt="{t['photo_alt']}" width="900" height="1125"></div>
+    <aside class="hero-figs reveal d4" aria-label="{t['figs_label']}"><dl>{figs}</dl></aside>
   </div>
 </section>
 
@@ -296,6 +400,7 @@ def page(t):
       <p class="corr-intro">{t['corr_intro']}</p>
       <div class="corridor-card" aria-live="polite"></div>
       <div class="corridor-hint">{t['map_hint']}</div>
+      <figure class="port-photo"><img src="{b}assets/port-lome.jpg" alt="{t['port_alt']}" width="1400" height="788" loading="lazy"><figcaption>{t['port_cap']} <span class="credit">{t['port_credit']} <a href="https://commons.wikimedia.org/wiki/File:Container_ships_at_Lome_port.jpg" target="_blank" rel="noopener">Brendertogo</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></span></figcaption></figure>
     </div>
     <div class="corridor">{corridor_svg(t)}</div>
   </div>
@@ -307,6 +412,8 @@ def page(t):
     <div class="cols">{cols}</div>
   </div>
 </section>
+
+<figure class="photo-band"><img src="{b}assets/terrain.jpg" alt="{t['band_alt']}" width="1080" height="810" loading="lazy"><figcaption class="wrap">{t['band_cap']}</figcaption></figure>
 
 <section class="journey" id="parcours">
   <div class="wrap journey-grid">
@@ -325,6 +432,26 @@ def page(t):
   <div class="wrap">
     <h2>{t['exp_title']}</h2>
     <div class="exp-grid">{expg}</div>
+  </div>
+</section>
+
+<section class="agro" id="filieres">
+  <div class="wrap">
+    <div class="agro-top">
+      <div class="agro-head">
+        <p class="kicker">{t['agro_kicker']}</p>
+        <h2>{t['agro_title']}</h2>
+        <p class="agro-lede">{t['agro_lede']}</p>
+      </div>
+      <figure class="agro-photo"><img src="{b}assets/producteurs.jpg" alt="{t['agro_photo_alt']}" width="1080" height="810" loading="lazy"><figcaption>{t['agro_photo_cap']}</figcaption></figure>
+    </div>
+    <ol class="agro-grid">{agro}</ol>
+    <h3 class="agro-who-title">{t['agro_who_title']}</h3>
+    <div class="agro-who">{agro_who}</div>
+    <div class="agro-rule">
+      <p>{t['agro_rule']}</p>
+      <a class="btn btn-gold" href="mailto:ykstrategic@proton.me?subject={t['agro_subject']}">{t['agro_cta']}</a>
+    </div>
   </div>
 </section>
 
@@ -359,6 +486,7 @@ def page(t):
 
 <section class="leader" id="dirigeant">
   <div class="wrap leader-grid">
+    <div class="leader-photo"><img src="{b}assets/yaovi.jpg" alt="{t['photo_alt']}" width="900" height="1125" loading="lazy"></div>
     <div class="leader-text">
       <h2 class="sr">{t['lead_title']}</h2>
       <div class="name">{t['lead_name']}</div>
@@ -369,11 +497,29 @@ def page(t):
   </div>
 </section>
 
-<section class="eco">
+<section class="eco" id="partenaires">
   <div class="wrap">
     <h2>{t['eco_title']}</h2>
     <p class="eco-intro">{t['eco_intro']}</p>
     <div class="eco-cols">{eco3}</div>
+    <h3 class="partners-title">{t['partners_title']}</h3>
+    <div class="partners">{partners}</div>
+  </div>
+</section>
+
+<section class="consult" id="premier-echange">
+  <div class="wrap consult-grid">
+    <div>
+      <p class="kicker">{t['consult_kicker']}</p>
+      <h2>{t['consult_title']}</h2>
+      <p class="consult-lede">{t['consult_lede']}</p>
+      <a class="btn btn-gold" href="https://tally.so/r/rDD17N" data-tally-open="rDD17N" data-tally-layout="modal" data-tally-width="640" data-tally-emoji-animation="none">{t['consult_cta']}</a>
+    </div>
+    <div class="consult-box">
+      <h3>{t['consult_get_title']}</h3>
+      <ul>{consult_get}</ul>
+      <p class="consult-note">{t['consult_note']}</p>
+    </div>
   </div>
 </section>
 </main>

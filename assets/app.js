@@ -1,4 +1,5 @@
 (() => {
+  document.documentElement.classList.add("js");
   const data = JSON.parse(document.getElementById("site-data").textContent);
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -17,7 +18,7 @@
       mb.setAttribute("aria-expanded", open); nav.classList.toggle("open", open);
     });
     nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && mb.getAttribute("aria-expanded") === "true") { close(); mb.focus(); } });
   }
 
   // Titre : le mot final change
@@ -38,22 +39,26 @@
   const cities = [...document.querySelectorAll(".corridor .city")];
   const routes = [...document.querySelectorAll(".corridor .route")];
   const card = document.querySelector(".corridor-card");
-  let auto = true, idx = 0;
+  let idx = 0;
   const select = (n) => {
     idx = n;
     cities.forEach((c, k) => { c.classList.toggle("on", k === n); c.setAttribute("aria-pressed", k === n); });
     routes.forEach((r, k) => r.classList.toggle("on", k === n));
     const d = data.cities[n];
-    card.innerHTML = `<div class="k">${d.region}</div><p>${d.text}</p>`;
+    const heading = document.createElement("div");
+    heading.className = "k";
+    heading.textContent = d.region;
+    const copy = document.createElement("p");
+    copy.textContent = d.text;
+    card.replaceChildren(heading, copy);
   };
   cities.forEach((c, k) => {
-    const go = () => { auto = false; select(k); };
+    const go = () => select(k);
     c.addEventListener("click", go);
     c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
   });
   if (cities.length) {
     select(0);
-    if (!reduce) setInterval(() => { if (auto) select((idx + 1) % cities.length); }, 4200);
   }
 
   // Parcours : la ligne dorée se remplit au fil de la lecture
@@ -97,7 +102,11 @@
   const climb = (n) => {
     rungs.forEach((r, k) => { r.setAttribute("aria-pressed", k === n); r.classList.toggle("lit", k <= n); });
     const t = data.tiers[n];
-    lc.innerHTML = `<h3>${t.name}</h3><p>${t.text}</p>`;
+    const heading = document.createElement("h3");
+    heading.textContent = t.name;
+    const copy = document.createElement("p");
+    copy.textContent = t.text;
+    lc.replaceChildren(heading, copy);
   };
   rungs.forEach((r, k) => r.addEventListener("click", () => climb(k)));
   if (rungs.length) climb(0);
