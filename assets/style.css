@@ -122,7 +122,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 @media (min-width: 860px) { .proof-item { border-bottom: 0; } .proof-item + .proof-item { padding-left: 32px; border-left: 1px solid var(--line); } }
 .proof-grid { counter-reset: proof; }
 .proof-item h3 { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; color: var(--forest); }
-.proof-item h3::before { content: counter(proof, decimal-leading-zero); display: block; font-family: var(--text); font-size: .75rem; font-weight: 600; letter-spacing: .14em; color: var(--brass); margin-bottom: 10px; }
+.proof-item h3::before { content: counter(proof, decimal-leading-zero); display: block; font-family: var(--text); font-size: .75rem; font-weight: 600; letter-spacing: .14em; color: var(--green); margin-bottom: 10px; }
 .proof-item p { margin: 8px 0 0; font-size: .97rem; line-height: 1.6; color: var(--muted); }
 
 /* ---------- Corridors ---------- */
@@ -202,7 +202,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 
 /* ---------- Coopératives et filières ---------- */
 .agro { background: var(--ivory); padding: 112px 0; }
-.agro .kicker { font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--brass); margin: 0 0 18px; }
+.agro .kicker { font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--green); margin: 0 0 18px; }
 .agro h2 { max-width: 24ch; }
 .agro-top { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: end; }
 @media (min-width: 960px) { .agro-top { grid-template-columns: 7fr 5fr; gap: 64px; } }
@@ -216,7 +216,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 @media (min-width: 1040px) { .agro-grid { grid-template-columns: repeat(3, 1fr); } }
 .agro-grid li { background: var(--paper); padding: 32px 30px 36px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .3s; }
 .agro-grid li:hover { background: var(--white); }
-.agro-grid .n { display: block; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 2rem; line-height: 1; color: var(--brass); }
+.agro-grid .n { display: block; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 2rem; line-height: 1; color: var(--green); }
 .agro-grid h3 { font-size: 1.1rem; color: var(--forest); margin-top: 18px; }
 .agro-grid p { color: var(--muted); font-size: .96rem; margin: 10px 0 0; }
 .agro-who-title { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; color: var(--forest); margin-top: 72px; }
@@ -240,7 +240,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 .case-steps { list-style: none; padding: 4px 28px; margin: 0; background: var(--paper); border: 1px solid var(--line); }
 .case-steps li { display: grid; grid-template-columns: 100px 1fr; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .case-steps li:last-child { border-bottom: 0; }
-.st { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brass); border: 1px solid var(--brass); padding: 3px 8px; text-align: center; }
+.st { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); border: 1px solid var(--brass); padding: 3px 8px; text-align: center; }
 .st.st-on { background: var(--forest); color: var(--brass-light); border-color: var(--forest); }
 .case-more { margin: 24px 0 28px; font-size: .98rem; }
 
@@ -254,7 +254,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 .ladder-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
 .rung { text-align: left; padding: 16px 10px 12px; border-top: 1px solid var(--line-dark); color: #8d9496; font-family: var(--serif); font-size: 1.1rem; transition: border-color .25s, color .25s; }
 .rung[aria-pressed="true"], .rung.lit { border-top: 2px solid var(--brass-light); color: var(--ivory); }
-.rung small { display: block; font-family: var(--text); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: #6c7477; margin-top: 4px; }
+.rung small { display: block; font-family: var(--text); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: #8a9296; margin-top: 4px; }
 @media (max-width: 560px) { .rung { font-size: .92rem; padding: 12px 4px 10px; } }
 .ladder-copy { margin-top: 24px; min-height: 120px; }
 .ladder-copy h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; color: var(--brass-light); }
@@ -270,7 +270,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 .leader-photo img { position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; filter: saturate(.9) contrast(1.02); }
 .leader-text { max-width: 860px; border-left: 1px solid var(--brass); padding-left: 40px; }
 .leader-text .name { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 400; color: var(--forest); line-height: 1.05; }
-.leader-text .role { color: var(--brass); font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin: 12px 0 28px; }
+.leader-text .role { color: var(--green); font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin: 12px 0 28px; }
 .leader-text p { color: var(--muted); }
 .leader-text blockquote { margin: 30px 0 0; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1.5rem; line-height: 1.42; color: var(--forest); }
 
@@ -281,7 +281,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 @media (min-width: 860px) { .eco-cols { grid-template-columns: repeat(3, 1fr); } .eco-col + .eco-col { border-left: 1px solid var(--line); } }
 .eco-col { padding: 30px 28px 32px 0; border-bottom: 1px solid var(--line); }
 @media (min-width: 860px) { .eco-col + .eco-col { padding-left: 28px; } .eco-col { border-bottom: 0; } }
-.eco-col .role { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 12px; }
+.eco-col .role { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
 .eco-col h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; color: var(--forest); }
 .eco-col h3 a { text-decoration: none; border-bottom: 1px solid var(--brass); }
 .eco-col p { color: var(--muted); font-size: .97rem; margin: 10px 0 0; }
@@ -292,7 +292,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 @media (min-width: 1040px) { .partners { grid-template-columns: repeat(4, 1fr); } }
 .partner { display: flex; flex-direction: column; background: var(--paper); padding: 28px 26px 30px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .3s; }
 .partner:hover { background: var(--white); }
-.partner .role { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+.partner .role { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--green); }
 .partner h4 { margin: 12px 0 0; font-family: var(--serif); font-weight: 400; font-size: 1.45rem; line-height: 1.15; color: var(--forest); }
 .partner p { color: var(--muted); font-size: .94rem; margin: 10px 0 0; flex: 1; }
 .partner-link { align-self: flex-start; margin-top: 18px; font-size: .9rem; font-weight: 500; color: var(--forest); text-decoration: none; border-bottom: 1px solid var(--brass); padding-bottom: 2px; }
@@ -310,7 +310,7 @@ p { margin: 0 0 1em; max-width: 64ch; }
 
 /* ---------- Premier échange offert ---------- */
 .consult { background: var(--paper); padding: 112px 0; border-top: 1px solid var(--line); }
-.consult .kicker { font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--brass); margin: 0 0 18px; }
+.consult .kicker { font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--green); margin: 0 0 18px; }
 .consult h2::before { display: none; }
 .consult-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
 @media (min-width: 900px) { .consult-grid { grid-template-columns: 6fr 5fr; gap: 72px; } }
