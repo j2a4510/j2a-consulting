@@ -243,6 +243,11 @@ p { margin: 0 0 1em; max-width: 64ch; }
 .st { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); border: 1px solid var(--brass); padding: 3px 8px; text-align: center; }
 .st.st-on { background: var(--forest); color: var(--brass-light); border-color: var(--forest); }
 .case-more { margin: 24px 0 28px; font-size: .98rem; }
+.case-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 36px; margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line); }
+.case-logos a { display: block; transition: opacity .2s; }
+.case-logos a:hover { opacity: .75; }
+.case-logos img { display: block; width: auto; height: auto; max-height: 64px; max-width: 170px; }
+.case-logos img[src*="growing"] { max-height: 52px; }
 
 /* ---------- Market Access ---------- */
 .market { background: var(--forest); color: var(--ivory); padding: 112px 0; }
