@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /maquettes/
+
+Sitemap: https://j2a4510.github.io/j2a-consulting/sitemap.xml

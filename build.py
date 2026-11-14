@@ -165,6 +165,7 @@ T = {
            dict(name="Développer", short="Ventes", text="Accélérer les ventes avec une prospection active et un suivi des opportunités."),
            dict(name="S'implanter", short="Présence", text="Installer une présence durable, avec une représentation locale quand les résultats le justifient.")],
     quote="« Entrer sur un nouveau marché ne devrait jamais commencer par l'ouverture d'un bureau. »",
+    proof_title="Ce que fait J2A Consulting",
     lead_title="Le dirigeant", lead_name="Yaovi Kokodoko", lead_role="Directeur général, J2A Consulting",
     lead=["Yaovi Kokodoko structure des projets et des financements entre l'Afrique de l'Ouest, l'Europe, le Golfe, le Québec et l'Asie. Il travaille avec des entreprises, des investisseurs, des collectivités et des États, en agro-industrie, en immobilier, en énergie et en développement institutionnel.",
           "Ingénieur des travaux en génie civil de formation, il monte des projets depuis 2016, d'abord dans le négoce de produits tropicaux, puis dans le conseil. Il a fondé J2A Consulting en 2022.",
@@ -274,6 +275,7 @@ T = {
            dict(name="Grow", short="Sales", text="Accelerate sales with active business development and opportunity tracking."),
            dict(name="Establish", short="Presence", text="Set up a lasting presence, with local representation once results justify it.")],
     quote="“Entering a new market should never begin with opening an office.”",
+    proof_title="What J2A Consulting does",
     lead_title="Leadership", lead_name="Yaovi Kokodoko", lead_role="Managing Director, J2A Consulting",
     lead=["Yaovi Kokodoko structures projects and financing across West Africa, Europe, the Gulf, Quebec and Asia. He works with companies, investors, local and national governments in agribusiness, real estate, energy and institutional development.",
           "A civil engineer by training, he has been building projects since 2016, first in the tropical produce trade, then in advisory work. He founded J2A Consulting in 2022.",
@@ -298,6 +300,21 @@ T = {
 }
 
 SITE = "https://j2a4510.github.io/j2a-consulting/"  # à remplacer par le nom de domaine définitif
+
+# Fiche « organisation » lisible par Google (schema.org)
+ORG_LD = json.dumps({
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "J2A Consulting",
+    "url": SITE,
+    "logo": SITE + "assets/logo.svg",
+    "image": SITE + "assets/share.jpg",
+    "telephone": "+228 71 52 79 76",
+    "address": {"@type": "PostalAddress", "addressLocality": "Lomé", "addressCountry": "TG"},
+    "areaServed": ["TG", "BJ", "BF", "CI", "SN", "NE", "ML"],
+    "founder": {"@type": "Person", "name": "Yaovi Kokodoko"},
+    "sameAs": ["https://www.linkedin.com/company/jaa-consult-ing/"],
+}, ensure_ascii=False)
 
 def page(t):
     b = t["base"]
@@ -367,6 +384,7 @@ def page(t):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{b}assets/style.css?v={VER}">
+<script type="application/ld+json">{ORG_LD}</script>
 </head>
 <body>
 <a class="skip-link" href="#main">{t['skip']}</a>
@@ -393,7 +411,8 @@ def page(t):
   </div>
 </section>
 
-<section class="proof" aria-label="J2A">
+<section class="proof" aria-labelledby="proof-title">
+  <h2 class="sr" id="proof-title">{t['proof_title']}</h2>
   <div class="wrap proof-grid">{proof}</div>
 </section>
 
@@ -554,4 +573,17 @@ def page(t):
 
 (ROOT / "index.html").write_text(page(T["fr"]), encoding="utf-8")
 (ROOT / "en" / "index.html").write_text(page(T["en"]), encoding="utf-8")
+
+# Plan du site et consignes pour les moteurs de recherche
+import datetime
+today = datetime.date.today().isoformat()
+(ROOT / "sitemap.xml").write_text(f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>{SITE}</loc><lastmod>{today}</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="{SITE}"/><xhtml:link rel="alternate" hreflang="en" href="{SITE}en/"/></url>
+  <url><loc>{SITE}en/</loc><lastmod>{today}</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="{SITE}"/><xhtml:link rel="alternate" hreflang="en" href="{SITE}en/"/></url>
+</urlset>
+""", encoding="utf-8")
+(ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /maquettes/\n\nSitemap: {SITE}sitemap.xml\n", encoding="utf-8")
 print("ok")
