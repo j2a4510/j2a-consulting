@@ -284,7 +284,12 @@ p { margin: 0 0 1em; max-width: 64ch; }
 .eco-col .role { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
 .eco-col h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; color: var(--forest); }
 .eco-col h3 a { text-decoration: none; border-bottom: 1px solid var(--brass); }
+.eco-col h3.eco-logo { height: 76px; display: flex; align-items: center; }
+.eco-col h3.eco-logo a { border-bottom: 0; display: block; }
+.eco-col h3.eco-logo img { display: block; width: auto; height: auto; max-height: 76px; max-width: 160px; }
+.eco-col h3.eco-logo img[src*="growing"] { max-height: 62px; max-width: 190px; }
 .eco-col p { color: var(--muted); font-size: .97rem; margin: 10px 0 0; }
+.eco-col .partner-link { display: inline-block; }
 
 .partners-title { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; color: var(--forest); margin-top: 72px; }
 .partners { margin-top: 24px; display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
