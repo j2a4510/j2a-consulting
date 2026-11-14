@@ -178,7 +178,7 @@ T = {
     partners=[("Lean Hub Asia", "https://www.leanhubasia.com/", "Singapour", "Cabinet de transformation B2B, du lean au numérique, pour l'industrie, les infrastructures et la chaîne logistique."),
               ("InnovNation", "https://innovnation.ai/", "IA et entrepreneuriat", "Plateforme d'entrepreneuriat fondée sur l'IA pour les universités, les gouvernements et les incubateurs. Avec Lean Hub Asia, J2A en porte un projet de déploiement en Afrique de l'Ouest francophone."),
               ("SIMCEL", "https://www.simcel.io/", "IA et planification", "Plateforme de planification intégrée par l'IA et les jumeaux numériques. J2A accompagne son développement en Afrique de l'Ouest."),
-              ("CEFAAT-SFER", None, "Togo", "Centrale entrepreneuriale et des filières agricoles : foncier agricole et programmes de production au Togo.")],
+              ("CEFAAT-SFER", "https://cefaat-sfer.tg/", "Togo", "Centrale entrepreneuriale et des filières agricoles : foncier agricole et programmes de production au Togo.")],
     eco=[("Ipomoea Africa", "https://ipomoea.africa", "Production et export agro-industriels au Togo, construits par phases."),
          ("Growing Beyond Vision", "https://www.growingbeyondvision.com/", "Transformer les ressources africaines en Afrique, avec Lean Hub Asia (Singapour)."),
          ("Association Togolaise de la Franchise", None, "La franchise comme levier de développement des entreprises au Togo.")],
@@ -288,7 +288,7 @@ T = {
     partners=[("Lean Hub Asia", "https://www.leanhubasia.com/", "Singapore", "B2B transformation consultancy, from lean to digital, for industry, infrastructure and supply chains."),
               ("InnovNation", "https://innovnation.ai/", "AI and entrepreneurship", "An AI-native entrepreneurship platform for universities, governments and incubators. With Lean Hub Asia, J2A is leading a plan to roll it out across French-speaking West Africa."),
               ("SIMCEL", "https://www.simcel.io/", "AI and planning", "An integrated business planning platform built on AI and digital twins. J2A supports its development in West Africa."),
-              ("CEFAAT-SFER", None, "Togo", "An agricultural business and value-chain hub: farmland and production programmes in Togo.")],
+              ("CEFAAT-SFER", "https://cefaat-sfer.tg/", "Togo", "An agricultural business and value-chain hub: farmland and production programmes in Togo.")],
     eco=[("Ipomoea Africa", "https://ipomoea.africa", "Agro-industrial production and export in Togo, built in phases."),
          ("Growing Beyond Vision", "https://www.growingbeyondvision.com/", "Processing African resources in Africa, with Lean Hub Asia (Singapore)."),
          ("Togolese Franchise Association", None, "Franchising as a growth lever for businesses in Togo.")],
@@ -300,6 +300,14 @@ T = {
 }
 
 SITE = "https://j2a4510.github.io/j2a-consulting/"  # à remplacer par le nom de domaine définitif
+
+# Logos des partenaires (fichier, largeur, hauteur), dans assets/partners/
+PARTNER_LOGOS = {
+    "Lean Hub Asia": ("lean-hub-asia.svg", 127, 48),
+    "InnovNation": ("innovnation.svg", 2015, 383),
+    "SIMCEL": ("simcel.png", 600, 213),
+    "CEFAAT-SFER": ("cefaat-sfer.png", 240, 153),
+}
 
 # Fiche « organisation » lisible par Google (schema.org)
 ORG_LD = json.dumps({
@@ -350,7 +358,7 @@ def page(t):
         for i, (h, p) in enumerate(t["agro"], 1))
     consult_get = "".join(f"<li>{x}</li>" for x in t["consult_get"])
     partners = "".join(
-        f'<article class="partner"><span class="role">{r}</span><h4>{n}</h4><p>{p}</p>'
+        f'<article class="partner"><span class="role">{r}</span><h4 class="partner-logo"><img src="{b}assets/partners/{PARTNER_LOGOS[n][0]}" alt="{n}" width="{PARTNER_LOGOS[n][1]}" height="{PARTNER_LOGOS[n][2]}" loading="lazy"></h4><p>{p}</p>'
         + (f'<a class="partner-link" href="{u}" target="_blank" rel="noopener">{t["partners_link"]} <span aria-hidden="true">↗</span></a>' if u else "")
         + "</article>"
         for n, u, r, p in t["partners"])
