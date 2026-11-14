@@ -307,6 +307,8 @@ PARTNER_LOGOS = {
     "InnovNation": ("innovnation.svg", 2015, 383),
     "SIMCEL": ("simcel.png", 600, 213),
     "CEFAAT-SFER": ("cefaat-sfer.png", 240, 153),
+    "Ipomoea Africa": ("ipomoea-africa.png", 320, 235),
+    "Growing Beyond Vision": ("growing-beyond-vision.svg", 924, 335),
 }
 
 # Fiche « organisation » lisible par Google (schema.org)
@@ -365,7 +367,12 @@ def page(t):
     figs = "".join(f"<div><dt>{n}</dt><dd>{d}</dd></div>" for n, d in t["figs"])
     agro_who = "".join(f"<div><h3>{h}</h3><p>{p}</p></div>" for h, p in t["agro_who"])
     eco3 = "".join(
-        f'<div class="eco-col"><span class="role">{r}</span><h3>' + (f'<a href="{u}" rel="noopener">{n}</a>' if u else n) + f'</h3><p>{p}</p></div>'
+        f'<div class="eco-col"><span class="role">{r}</span><h3' + (' class="eco-logo"' if n in PARTNER_LOGOS else '') + '>'
+        + (lambda label: f'<a href="{u}" rel="noopener">{label}</a>' if u else label)(
+            f'<img src="{b}assets/partners/{PARTNER_LOGOS[n][0]}" alt="{n}" width="{PARTNER_LOGOS[n][1]}" height="{PARTNER_LOGOS[n][2]}" loading="lazy">' if n in PARTNER_LOGOS else n)
+        + f'</h3><p>{p}</p>'
+        + (f'<a class="partner-link" href="{u}" target="_blank" rel="noopener">{t["partners_link"]} <span aria-hidden="true">↗</span></a>' if u else "")
+        + '</div>'
         for (n, u, p), r in zip(t["eco"], t["eco_roles"]))
     data = json.dumps(dict(verbs=t["verbs"], cities=t["cities"], tiers=t["tiers"]), ensure_ascii=False)
     return f"""<!doctype html>
