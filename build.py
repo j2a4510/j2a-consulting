@@ -150,10 +150,10 @@ T = {
               ("Communes", "Des pôles agricoles qui créent des emplois pour les jeunes.")],
     agro_rule="<b>Notre règle :</b> nous ne gérons jamais les fonds. Les financements vont aux coopératives, les contrats sont signés entre les parties, et notre rémunération est connue de tous.",
     agro_cta="Présenter une coopérative ou une filière", agro_subject="Coopérative ou filière à accompagner",
-    case_title="Sur notre table en ce moment",
-    case_name="Une filière agro-industrielle d'export, au Togo",
-    case_lede="Du foncier et un acheteur européen intéressé, mais ni plan de financement, ni certification, ni organisation de production. Voici où en est le dossier.",
-    case_steps=[("Fait", "Projet découpé en phases, de l'export du frais à la transformation"), ("Fait", "Dossiers distincts pour les banques locales et pour les fonds"), ("Fait", "Organisme de certification bio reconnu par l'UE retenu"), ("En cours", "Accord cadre avec l'acheteur européen et programme d'expéditions 2027"), ("En cours", "Coopératives d'appui engagées pour sécuriser les volumes")],
+    case_title="Notre méthode, appliquée à notre propre projet",
+    case_name="Ipomoea Africa : patate douce bio à M'Poti, au Togo",
+    case_lede="Nous ne faisons pas que conseiller : nous investissons. Ipomoea Africa, structuré avec Growing Beyond Vision, suit le parcours que nous proposons à nos clients. Point au 14 novembre 2026.",
+    case_steps=[("Fait", "Projet découpé en phases, de l'export du frais à la transformation"), ("Fait", "Dossiers distincts pour les banques locales et pour les fonds"), ("Fait", "Organisme de certification bio reconnu par l'UE retenu"), ("En cours", "Préparation des sols fin novembre et premières plantations en décembre, sur environ 100 ha en conversion bio"), ("En cours", "Coopératives partenaires de la zone engagées pour sécuriser les volumes"), ("À venir", "Premières exportations en 2027")],
     case_more="D'autres dossiers en immobilier, en énergie, auprès de collectivités et d'États, et en entrée sur le marché sont présentés sur demande, sous accord de confidentialité.",
     case_cta="Recevoir une présentation détaillée", case_subject="Demande de présentation détaillée",
     m_title="J2A Market Access",
@@ -260,10 +260,10 @@ T = {
               ("Municipalities", "Agricultural hubs that create jobs for young people.")],
     agro_rule="<b>Our rule:</b> we never handle the funds. Financing goes to the cooperatives, contracts are signed between the parties, and our fees are disclosed to everyone.",
     agro_cta="Present a cooperative or a value chain", agro_subject="Cooperative or value chain to support",
-    case_title="On our desk right now",
-    case_name="An agro-industrial export value chain in Togo",
-    case_lede="Land and an interested European buyer, but no financing plan, no certification and no production organisation. Here is where the file stands.",
-    case_steps=[("Done", "Project broken into phases, from fresh export to processing"), ("Done", "Separate files for local banks and for investment funds"), ("Done", "EU-recognised organic certification body selected"), ("In progress", "Framework agreement with the European buyer and 2027 shipping programme"), ("In progress", "Partner cooperatives committed to secure volumes")],
+    case_title="Our method, applied to our own project",
+    case_name="Ipomoea Africa: organic sweet potato in M'Poti, Togo",
+    case_lede="We do not only advise: we invest. Ipomoea Africa, structured with Growing Beyond Vision, follows the same path we offer our clients. Status as of 14 November 2026.",
+    case_steps=[("Done", "Project broken into phases, from fresh export to processing"), ("Done", "Separate files for local banks and for investment funds"), ("Done", "EU-recognised organic certification body selected"), ("In progress", "Land preparation in late November and first planting in December, on about 100 ha in organic conversion"), ("In progress", "Partner cooperatives in the area committed to secure volumes"), ("Next", "First exports in 2027")],
     case_more="Other files in real estate, in energy, with local and national governments and in market entry are presented on request, under a confidentiality agreement.",
     case_cta="Request a detailed presentation", case_subject="Request for a detailed presentation",
     m_title="J2A Market Access",
@@ -342,6 +342,9 @@ def page(t):
         f'<p class="lead-in">{p}</p><ul>' + "".join(f"<li>{x}</li>" for x in li) + "</ul></div>"
         for k, (_, p, li) in enumerate(t["exp"]))
     rungs = "".join(f'<button class="rung" aria-pressed="false">{x["name"]}<small>{x["short"]}</small></button>' for x in t["tiers"])
+    case_logos = "".join(
+        f'<a href="{u}" target="_blank" rel="noopener" aria-label="{n}"><img src="{b}assets/partners/{PARTNER_LOGOS[n][0]}" alt="{n}" width="{PARTNER_LOGOS[n][1]}" height="{PARTNER_LOGOS[n][2]}" loading="lazy"></a>'
+        for n, u in (("Ipomoea Africa", "https://ipomoea.africa"), ("Growing Beyond Vision", "https://www.growingbeyondvision.com/")))
     csteps = "".join(f'<li><span class="st{" st-on" if a in ("Fait", "Done") else ""}">{a}</span>{b}</li>' for a, b in t["case_steps"])
     mtext = "".join(f"<p>{p}</p>" for p in t["m_text"])
     lead = "".join(f"<p>{p}</p>" for p in t["lead"])
@@ -499,6 +502,7 @@ def page(t):
       <h2>{t['case_title']}</h2>
       <p class="case-name">{t['case_name']}</p>
       <p>{t['case_lede']}</p>
+      <div class="case-logos">{case_logos}</div>
     </div>
     <div>
       <ul class="case-steps">{csteps}</ul>
